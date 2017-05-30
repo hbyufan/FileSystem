@@ -1,0 +1,8 @@
+{
+"uCenterUrl":["http://localhost:8080/ThreeCSSIdentity/s","UCenter地址"],
+"isUseHDFS":[false,"是否使用hdfs"],
+"fileBasePath":["FileBasePath","基础文件目录"],
+"uploadMaxLength":[1048576,"最大上传长度"],
+"waitTime":[640,"客户端下一次上传文件间隔"],
+"onceWriteFileSize":[65536,"一次写入文件的大小"]
+}
