@@ -12,15 +12,27 @@ function ByteUtil() {
             return (speed / this.KB_SIZE).toFixed(2) + "MB/S";
         }
     }
-    this.getByte = function (bit) {
+    this.getByte = function (bit, fixSizeKB, fixSizeMB, fixSizeGM) {
         if (bit < this.B_SIZE) {
             return bit + "B";
         } else if (bit < this.KB_SIZE) {
-            return (bit / this.B_SIZE).toFixed(2) + "KB";
+            if (fixSizeKB != null) {
+                return (bit / this.B_SIZE).toFixed(fixSizeKB) + "KB";
+            } else {
+                return (bit / this.B_SIZE).toFixed(2) + "KB";
+            }
         } else if (bit < this.MB_SIZE) {
-            return (bit / this.KB_SIZE).toFixed(2) + "MB";
+            if (fixSizeMB != null) {
+                return (bit / this.KB_SIZE).toFixed(fixSizeMB) + "MB";
+            } else {
+                return (bit / this.KB_SIZE).toFixed(2) + "MB";
+            }
         } else {
-            return (bit / this.MB_SIZE).toFixed(2) + "GB";
+            if (fixSizeGM != null) {
+                return (bit / this.MB_SIZE).toFixed(fixSizeGM) + "GB";
+            } else {
+                return (bit / this.MB_SIZE).toFixed(2) + "GB";
+            }
         }
     }
 }

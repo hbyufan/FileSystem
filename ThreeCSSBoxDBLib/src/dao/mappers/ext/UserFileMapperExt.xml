@@ -63,4 +63,13 @@
     and t2.user_file_id = #{userFileId,jdbcType=VARCHAR}
     and t1.file_base_state = 1
   </select>
+  <select id="countSize" parameterType="java.lang.String" resultType="java.lang.Long">
+    select
+    sum(t1.file_base_total_size) as fileTotalSize
+    from file_base as t1, user_file as t2
+    where t1.file_base_id = t2.file_base_id
+    and t2.user_fold_top_id = #{userFoldTopId,jdbcType=VARCHAR}
+    and ( t2.user_file_state = 1 or t2.user_file_state = 2)
+    and t1.file_base_state = 1
+  </select>
 </mapper>

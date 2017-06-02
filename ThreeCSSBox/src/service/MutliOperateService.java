@@ -3,6 +3,7 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
+import action.BoxErrorSAction;
 import action.UserFileAction;
 import action.UserFoldAction;
 import config.UserFileConfig;
@@ -11,6 +12,9 @@ import http.HOpCodeBox;
 import http.HSession;
 import http.HttpPacket;
 import http.IHttpListener;
+import http.exception.HttpErrorException;
+import protobuf.http.BoxErrorProto.BoxErrorCode;
+import protobuf.http.BoxErrorProto.BoxErrorS;
 import protobuf.http.MutliOperateProto.MutilOperateClearRecyclebinC;
 import protobuf.http.MutliOperateProto.MutilOperateClearRecyclebinS;
 import protobuf.http.MutliOperateProto.MutilOperateMoveToC;
@@ -40,19 +44,21 @@ public class MutliOperateService implements IHttpListener {
 		return this;
 	}
 
-	public HttpPacket mutliToRecycleBinHandle(HSession hSession) {
+	public HttpPacket mutliToRecycleBinHandle(HSession hSession) throws HttpErrorException {
 		MutilOperateToRecyclebinC message = (MutilOperateToRecyclebinC) hSession.httpPacket.getData();
 		boolean result;
 		if (message.getUserFoldIdsList().size() != 0) {
 			result = UserFoldAction.updateUserFoldListState(message.getUserFoldIdsList(), UserFoldConfig.STATE_IN_RECYCLEBIN);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_20, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		if (message.getUserFileIdsList().size() != 0) {
 			result = UserFileAction.updateUserFileListState(message.getUserFileIdsList(), UserFileConfig.STATE_IN_RECYCLEBIN);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_20, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		MutilOperateToRecyclebinS.Builder builder = MutilOperateToRecyclebinS.newBuilder();
@@ -61,19 +67,21 @@ public class MutliOperateService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket mutliOffRecycleBinHandle(HSession hSession) {
+	public HttpPacket mutliOffRecycleBinHandle(HSession hSession) throws HttpErrorException {
 		MutilOperateOffRecyclebinC message = (MutilOperateOffRecyclebinC) hSession.httpPacket.getData();
 		boolean result;
 		if (message.getUserFoldIdsList().size() != 0) {
 			result = UserFoldAction.updateUserFoldListState(message.getUserFoldIdsList(), UserFoldConfig.STATE_CAN_USE);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_21, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		if (message.getUserFileIdsList().size() != 0) {
 			result = UserFileAction.updateUserFileListState(message.getUserFileIdsList(), UserFileConfig.STATE_CAN_USE);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_21, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		MutilOperateOffRecyclebinS.Builder builder = MutilOperateOffRecyclebinS.newBuilder();
@@ -82,19 +90,21 @@ public class MutliOperateService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket mutliMoveToHandle(HSession hSession) {
+	public HttpPacket mutliMoveToHandle(HSession hSession) throws HttpErrorException {
 		MutilOperateMoveToC message = (MutilOperateMoveToC) hSession.httpPacket.getData();
 		boolean result;
 		if (message.getUserFoldIdsList().size() != 0) {
 			result = UserFoldAction.updateUserFoldListParentId(message.getUserFoldIdsList(), message.getUserFoldParentId());
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_22, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		if (message.getUserFileIdsList().size() != 0) {
 			result = UserFileAction.updateUserFileListParentId(message.getUserFileIdsList(), message.getUserFoldParentId());
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_22, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		MutilOperateMoveToS.Builder builder = MutilOperateMoveToS.newBuilder();
@@ -103,19 +113,21 @@ public class MutliOperateService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket mutliRemoveHandle(HSession hSession) {
+	public HttpPacket mutliRemoveHandle(HSession hSession) throws HttpErrorException {
 		MutilOperateRemoveC message = (MutilOperateRemoveC) hSession.httpPacket.getData();
 		boolean result;
 		if (message.getUserFoldIdsList().size() != 0) {
 			result = UserFoldAction.updateUserFoldListState(message.getUserFoldIdsList(), UserFoldConfig.STATE_DELETE);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_23, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		if (message.getUserFileIdsList().size() != 0) {
 			result = UserFileAction.updateUserFileListState(message.getUserFileIdsList(), UserFileConfig.STATE_DELETE);
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_23, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 		}
 		MutilOperateRemoveS.Builder builder = MutilOperateRemoveS.newBuilder();
@@ -124,15 +136,17 @@ public class MutliOperateService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket mutliClearRecycleBinHandle(HSession hSession) {
+	public HttpPacket mutliClearRecycleBinHandle(HSession hSession) throws HttpErrorException {
 		MutilOperateClearRecyclebinC message = (MutilOperateClearRecyclebinC) hSession.httpPacket.getData();
 		boolean result = UserFoldAction.clearRecycleBin(message.getUserFoldTopId());
 		if (!result) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_24, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		result = UserFileAction.clearRecycleBin(message.getUserFoldTopId());
 		if (!result) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_24, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		MutilOperateClearRecyclebinS.Builder builder = MutilOperateClearRecyclebinS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);

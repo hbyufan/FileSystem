@@ -234,6 +234,7 @@ public class UserFoldAction {
 				dataBuilder.setHaveChildUserFold(false);
 			}
 		}
+		dataBuilder.setUserFoldUpdateTimeStamp(userFold.getUserFoldUpdateTime().getTime());
 		return dataBuilder;
 	}
 

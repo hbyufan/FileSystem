@@ -13,10 +13,12 @@ function MutliOperateProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.clearRecyclebinSuccess = function (result, sendParam) {
         $T.userFoldProxy.getRecycleBin($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
+        $T.boxInfoProxy.getBoxInfo($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
     }
     this.clearRecyclebinFail = function (result, sendParam) {
 
@@ -35,6 +37,7 @@ function MutliOperateProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.toRecyclebinSuccess = function (result, sendParam) {
@@ -57,6 +60,7 @@ function MutliOperateProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.offRecyclebinSuccess = function (result, sendParam) {
@@ -79,10 +83,12 @@ function MutliOperateProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.removeSuccess = function (result, sendParam) {
         $T.userFoldProxy.getRecycleBin($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
+        $T.boxInfoProxy.getBoxInfo($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
     }
     this.removeFail = function (result, sendParam) {
 
@@ -102,6 +108,7 @@ function MutliOperateProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.moveToSuccess = function (result, sendParam) {

@@ -29,15 +29,19 @@
   	table_a.user_fold_owner_id as user_fold_owner_id,
   	table_a.user_fold_channel_type as user_fold_channel_type,
   	table_a.user_fold_channel_user_id as user_fold_channel_user_id,
-  	COUNT(table_b.user_fold_parent_id) as child_num
+  	COUNT(table_b.user_fold_state) as child_num
   </sql>
   <select id="selectByUserFoldParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
- 	FROM user_fold AS table_a LEFT JOIN user_fold AS table_b ON table_a.user_fold_id = table_b.user_fold_parent_id
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM user_fold AS table_a LEFT JOIN 
+	(SELECT user_fold_id,user_fold_parent_id,(CASE user_fold_state  WHEN 1 THEN 1  ELSE NULL END) AS user_fold_state
+	FROM user_fold) AS table_b
+  	ON table_a.user_fold_id = table_b.user_fold_parent_id
  	where table_a.user_fold_parent_id = #{userFoldParentId,jdbcType=VARCHAR}
- 	AND table_a.user_fold_state = 1 AND (table_b.user_fold_state = 1 OR table_b.user_fold_state IS NULL)
- 	Group By table_a.user_fold_id
- 	order by table_a.user_fold_name asc
+	AND table_a.user_fold_state = 1 
+	AND (table_b.user_fold_state = 1 OR table_b.user_fold_state IS NULL) 
+	Group By table_a.user_fold_id
+	order by table_a.user_fold_name asc
   </select>
 </mapper>

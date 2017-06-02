@@ -76,6 +76,7 @@ message UserFoldData{
 	int32 userFoldChannelType=11;
 	string userFoldChannelUserId=12;
 	bool haveChildUserFold=13;//true有，false没有
+	int64 userFoldUpdateTimeStamp=14;//最后更新时间戳
 }
 message UserFileData{
 	string userFileId=1;
@@ -86,7 +87,8 @@ message UserFileData{
 	int32 userFileState=6;
 	string userFoldTopId=7;
 	string createUserId=8;
-	FileData fileBase=9;
+	int64 userFileUpdateTimeStamp=9;//最后更新时间戳
+	FileData fileBase=10;
 }
 message FileData{
 	string fileBaseId=1;

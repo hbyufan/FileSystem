@@ -21,6 +21,46 @@ function AllFileHeadMediator() {
         $(".resetBtn_PJY").on("click", this.updateName);
         $("#allfile_movechoose").on("click", this.onMutilMove);
 
+        $("#allfile_head_sortbutton").on("click", ".s-btn", this.onSortButtonClick);
+
+        $T.userFoldProxy.nowSortType = 1;
+        this.updateSortClass();
+
+    }
+    this.onSortButtonClick = function () {
+        if (this.id == "sort_name") {
+            if ($T.userFoldProxy.nowSortType == 1) {
+                return;
+            }
+            $T.userFoldProxy.nowSortType = 1;
+            $T.allFileHeadMediator.updateSortClass();
+        } else if (this.id == "sort_size") {
+            if ($T.userFoldProxy.nowSortType == 2) {
+                return;
+            }
+            $T.userFoldProxy.nowSortType = 2;
+            $T.allFileHeadMediator.updateSortClass();
+        } else if (this.id == "sort_time") {
+            if ($T.userFoldProxy.nowSortType == 3) {
+                return;
+            }
+            $T.userFoldProxy.nowSortType = 3;
+            $T.allFileHeadMediator.updateSortClass();
+        }
+        $("#allfile_head_sortlist").stop().slideUp(200);
+        $T.userFoldProxy.sortNowFoldChildren();
+    }
+    this.updateSortClass = function () {
+        $("#sort_name").removeClass("on_4");
+        $("#sort_size").removeClass("on_4");
+        $("#sort_time").removeClass("on_4");
+        if ($T.userFoldProxy.nowSortType == 1) {
+            $("#sort_name").addClass("on_4");
+        } else if ($T.userFoldProxy.nowSortType == 2) {
+            $("#sort_size").addClass("on_4");
+        } else if ($T.userFoldProxy.nowSortType == 3) {
+            $("#sort_time").addClass("on_4");
+        }
     }
     this.onMutilMove = function () {
         var checkArray = $T.allFileHeadMediator.getCheckedList();

@@ -19,6 +19,7 @@ function FileMediator() {
     this.allNum = 0;
     this.nowCompleteNum = 0;
     this.view1Num = 0;
+    this.isFirst = true;
     this.init = function (view) {
 
     }
@@ -109,10 +110,11 @@ function FileMediator() {
                         $T.fileMediator.isOpen = false;
                         return;
                     }
-                    layer.confirm('<br>列表中有未上传完成的文件，您确定要取消全部上传吗？', {
-                        title: "取消全部上传",
+                    layer.confirm('<br>清空上传列表会取消未上传完成的文件，您确定要清空上传列表吗？', {
+                        title: "清空上传列表",
                         type: 1,
                         area: ['460px', 'auto'],
+                        move: false,
                         btn1: function (index, layero) {
                             //按钮确定的回调
                             layer.closeAll();
@@ -327,7 +329,10 @@ function FileMediator() {
         if (fileList == null || fileList.length == 0) {
             return;
         }
-        this.openUploadBox();
+        if (this.isFirst) {
+            this.openUploadBox();
+            this.isFirst = false;
+        }
         for (var i = 0; i < fileList.length; i++) {
             var file = fileList[i];
             var uploadFileObj = new UploadFileObj();
@@ -416,6 +421,7 @@ function FileMediator() {
     }
     this.onUploadComplete = function (event) {
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.REFRESH_NOW_USERFOLD));
+        $T.boxInfoProxy.getBoxInfo($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
         this.nowCompleteNum++;
         $("#upload_box_num_text").text("正在上传（" + this.nowCompleteNum + "/" + this.allNum + "）");
     }
@@ -435,6 +441,7 @@ function FileMediator() {
             title: "取消上传",
             type: 1,
             area: ['460px', 'auto'],
+            move: false,
             btn1: function (index, layero) {
                 //按钮确定的回调
                 layer.close(index);

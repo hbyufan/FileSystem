@@ -5,17 +5,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import action.BoxErrorSAction;
 import action.FileBaseAction;
 import action.UserFileAction;
+import action.UserFoldAction;
 import config.CommonConfigBox;
 import config.FileBaseConfig;
 import dao.model.base.FileBase;
+import dao.model.base.UserFold;
 import dao.model.ext.UserFileExt;
 import http.HOpCodeBox;
 import http.HSession;
 import http.HttpPacket;
 import http.IHttpListener;
+import http.exception.HttpErrorException;
 import http.filter.FileData;
+import protobuf.http.BoxErrorProto.BoxErrorCode;
+import protobuf.http.BoxErrorProto.BoxErrorS;
 import protobuf.http.UploadFileProto.MD5CheckC;
 import protobuf.http.UploadFileProto.MD5CheckS;
 import protobuf.http.UploadFileProto.UploadFileC;
@@ -23,6 +29,7 @@ import protobuf.http.UploadFileProto.UploadFileS;
 import protobuf.http.UploadFileProto.UserFileDownloadC;
 import protobuf.http.UserGroupProto.UserData;
 import tool.StringUtil;
+import util.SizeUtil;
 
 public class UploadService implements IHttpListener, IService {
 
@@ -40,7 +47,7 @@ public class UploadService implements IHttpListener, IService {
 		return this;
 	}
 
-	public HttpPacket md5CheckHandle(HSession hSession) {
+	public HttpPacket md5CheckHandle(HSession hSession) throws HttpErrorException {
 		MD5CheckC message = (MD5CheckC) hSession.httpPacket.getData();
 		UserFileExt userFile = null;
 		if (!StringUtil.stringIsNull(message.getUserFileId())) {
@@ -57,9 +64,26 @@ public class UploadService implements IHttpListener, IService {
 		UserData userData = (UserData) hSession.otherData;
 		FileBase fileBase = FileBaseAction.getFileBaseByMd5(message.getFileBaseMd5());
 		if (userFile == null) {
+			// 校验大小开始
+			UserFold parentUserFold = UserFoldAction.getUserFoldById(message.getUserFoldParentId());
+			String userFoldTopId = null;
+			if (StringUtil.stringIsNull(parentUserFold.getUserFoldTopId())) {
+				userFoldTopId = parentUserFold.getUserFoldId();
+			} else {
+				userFoldTopId = parentUserFold.getUserFoldTopId();
+			}
+			Long userFileTotalSize = UserFileAction.getUserFileTotalSize(userFoldTopId);
+			if (userFileTotalSize != null) {
+				if (userFileTotalSize.longValue() > CommonConfigBox.BOX_INIT_SIZE * SizeUtil.KB_SIZE) {
+					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_25, hSession.headParam.hOpCode);
+					throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
+				}
+			}
+			// 校验大小结束
 			userFile = UserFileAction.createUserFile(message.getUserFileName(), message.getUserFoldParentId(), userData.getUserId(), message.getFileBaseMd5(), message.getFileBaseTotalSize(), fileBase);
 			if (userFile == null) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_3, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 			if (fileBase != null) {
 				// 秒传
@@ -85,7 +109,8 @@ public class UploadService implements IHttpListener, IService {
 				// 更新，然后秒传
 				boolean result = UserFileAction.changeFileBase(userFile.getUserFileId(), fileBase.getFileBaseId());
 				if (!result) {
-					return null;
+					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_3, hSession.headParam.hOpCode);
+					throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 				}
 				MD5CheckS.Builder builder = MD5CheckS.newBuilder();
 				builder.setHOpCode(hSession.headParam.hOpCode);
@@ -107,48 +132,57 @@ public class UploadService implements IHttpListener, IService {
 		}
 	}
 
-	public HttpPacket uploadFileHandle(HSession hSession) {
+	public HttpPacket uploadFileHandle(HSession hSession) throws HttpErrorException {
 		UploadFileC message = (UploadFileC) hSession.httpPacket.getData();
 		UserFileExt userFile = UserFileAction.getUserFile(message.getUserFileId());
 		if (userFile == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_4, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 位置不对
 		if (message.getFileBasePos() != userFile.getFileBase().getFileBasePos().longValue()) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_5, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 不能大于默认长度
 		if (message.getUploadLength() > CommonConfigBox.UPLOAD_MAX_LENGTH) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_6, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 没有文件
 		if (hSession.fileList == null || hSession.fileList.size() == 0) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_7, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		FileData fileData = hSession.fileList.get(0);
 		// 文件长度与消息长度不符
 		if ((int) fileData.getFile().length() != message.getUploadLength()) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_6, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		// 不存在这个文件
 		File file = UserFileAction.getFile(userFile.getFileBase().getFileBaseRealPath());
 		if (file == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_8, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		if (file.length() != message.getFileBasePos()) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_6, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		Date date = new Date();
 		// 是否在规定时间后上传
 		if (date.getTime() < userFile.getFileBase().getFileBaseNextUploadTime().getTime()) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_9, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		FileBase fileBase = FileBaseAction.getFileBaseByMd5(userFile.getFileBase().getFileBaseMd5());
 		if (fileBase != null) {
 			// 更新，然后秒传
 			boolean result = UserFileAction.changeFileBase(userFile.getUserFileId(), fileBase.getFileBaseId());
 			if (!result) {
-				return null;
+				BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_10, hSession.headParam.hOpCode);
+				throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 			}
 			UploadFileS.Builder builder = UploadFileS.newBuilder();
 			builder.setHOpCode(hSession.headParam.hOpCode);
@@ -159,11 +193,13 @@ public class UploadService implements IHttpListener, IService {
 		}
 		boolean result = UserFileAction.updateFile(file, fileData.getFile());
 		if (!result) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_11, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		result = UserFileAction.updateUserFile(userFile, message.getUploadLength());
 		if (!result) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_12, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		if ((message.getFileBasePos() + message.getUploadLength()) == userFile.getFileBase().getFileBaseTotalSize().longValue()) {
 			UploadFileS.Builder builder = UploadFileS.newBuilder();

@@ -3,12 +3,16 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
+import action.BoxErrorSAction;
 import action.UserFileAction;
 import dao.model.ext.UserFileExt;
 import http.HOpCodeBox;
 import http.HSession;
 import http.HttpPacket;
 import http.IHttpListener;
+import http.exception.HttpErrorException;
+import protobuf.http.BoxErrorProto.BoxErrorCode;
+import protobuf.http.BoxErrorProto.BoxErrorS;
 import protobuf.http.UserFoldProto.UpdateUserFileC;
 import protobuf.http.UserFoldProto.UpdateUserFileS;
 
@@ -26,11 +30,12 @@ public class UserFileService implements IHttpListener {
 		return this;
 	}
 
-	public HttpPacket updateUserFileHandle(HSession hSession) {
+	public HttpPacket updateUserFileHandle(HSession hSession) throws HttpErrorException {
 		UpdateUserFileC message = (UpdateUserFileC) hSession.httpPacket.getData();
 		UserFileExt userFile = UserFileAction.updateUserFile(message.getUserFileId(), message.getUserFileName(), message.getUserFileState(), message.getIsUpdateUserFoldParent(), message.getUserFoldParentId());
 		if (userFile == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_19, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		UpdateUserFileS.Builder builder = UpdateUserFileS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);

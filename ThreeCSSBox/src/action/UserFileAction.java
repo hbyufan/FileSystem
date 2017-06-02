@@ -88,6 +88,7 @@ public class UserFileAction {
 		dataBuilder.setUserFileState(userFile.getUserFileState());
 		dataBuilder.setUserFoldTopId(userFile.getUserFoldTopId());
 		dataBuilder.setCreateUserId(userFile.getCreateUserId());
+		dataBuilder.setUserFileUpdateTimeStamp(userFile.getUserFileUpdateTime().getTime());
 		FileData.Builder fileDataBuilder = FileData.newBuilder();
 		fileDataBuilder.setFileBaseId(userFile.getFileBase().getFileBaseId());
 		fileDataBuilder.setFileBaseRealPath(userFile.getFileBase().getFileBaseRealPath());
@@ -555,4 +556,28 @@ public class UserFileAction {
 		}
 		return true;
 	}
+
+	public static Long getUserFileTotalSize(String userFoldTopId) {
+		if (StringUtil.stringIsNull(userFoldTopId)) {
+			return null;
+		}
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = MybatisManager.getSqlSession();
+			UserFileMapperExt userFileMapperExt = sqlSession.getMapper(UserFileMapperExt.class);
+			return userFileMapperExt.countSize(userFoldTopId);
+		} catch (Exception e) {
+			if (sqlSession != null) {
+				sqlSession.rollback();
+			}
+			LogManager.mariadbLog.error("查询所有文件大小失败", e);
+			return null;
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+	}
+
 }

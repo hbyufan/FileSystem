@@ -17,6 +17,8 @@ public class CommonConfigBox extends CommonConfig {
 	public static int WAIT_TIME;
 	// 一次性写入文件的大小
 	public static int ONCE_WRITE_FILE_SIZE;
+	// 网盘初始化大小
+	public static int BOX_INIT_SIZE;
 
 	public static void init() {
 		LogManager.initLog.info("初始化CommonConfigBox");
@@ -27,6 +29,7 @@ public class CommonConfigBox extends CommonConfig {
 		UPLOAD_MAX_LENGTH = configExt.getJSONArray("uploadMaxLength").getInt(0);
 		WAIT_TIME = configExt.getJSONArray("waitTime").getInt(0);
 		ONCE_WRITE_FILE_SIZE = configExt.getJSONArray("onceWriteFileSize").getInt(0);
+		BOX_INIT_SIZE = configExt.getJSONArray("boxInitSize").getInt(0);
 		LogManager.initLog.info("初始化CommonConfigBox完成");
 	}
 

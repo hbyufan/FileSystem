@@ -111,6 +111,12 @@ h1,h2,h3,h4,h5{ font-weight:normal;}
 .s-btn:hover span{
     color: #fff;
 }
+.s-btn.on_4{
+    background-position: 0 -32px !important;
+}
+.s-btn.on_4{
+    color: #fff !important;
+}
 i.icon01{
     background: url("../images/icon01.png") no-repeat 0 0;
 }
@@ -411,10 +417,11 @@ i.icon04{
     white-space: nowrap;
     width:20%;
     float: left;
+    text-align:center;
     line-height: 56px;
     font-size: 14px;
-    text-align:center;
 }
+.file_path>a{color:#0B61A4;}
 .file_status{
     overflow: hidden;
     text-overflow: ellipsis;
@@ -441,7 +448,6 @@ i.icon04{
     font-size: 14px;
 }
 .file_operate>div{
-    margin-right:10px;
     width: 18px;
     height: 24px;
     display: inline-block;
@@ -568,4 +574,4 @@ i.icon04{
 }
 .file_status .processBox_PJY{text-align:center;margin-top:8px;margin-bottom:5px}
 .file_status .processBox_PJY>p{width:50%;height:8px;background:#efefef;margin:0 auto;overflow: hidden}
-.file_status .processBox_PJY>p>span{display:inline-block;background:#ffae00;width:0%;height:8px;float:left}
+.file_status .processBox_PJY>p>span{display:inline-block;background:#ffae00;width:20%;height:8px;float:left}

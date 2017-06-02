@@ -12,4 +12,6 @@ public interface UserFileMapperExt {
 	UserFileExt selectByPrimaryKey(String userFileId);
 
 	UserFileExt selectByPrimaryKeyComplete(String userFileId);
+
+	Long countSize(String userFoldTopId);
 }

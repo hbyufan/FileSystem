@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import action.BoxErrorSAction;
 import action.UserFileAction;
 import action.UserFoldAction;
 import dao.model.base.UserFold;
@@ -13,6 +14,9 @@ import http.HOpCodeBox;
 import http.HSession;
 import http.HttpPacket;
 import http.IHttpListener;
+import http.exception.HttpErrorException;
+import protobuf.http.BoxErrorProto.BoxErrorCode;
+import protobuf.http.BoxErrorProto.BoxErrorS;
 import protobuf.http.UserFoldProto.CreateUserFoldC;
 import protobuf.http.UserFoldProto.CreateUserFoldS;
 import protobuf.http.UserFoldProto.GetRecycleBinListC;
@@ -45,16 +49,18 @@ public class UserFoldService implements IHttpListener {
 		return this;
 	}
 
-	public HttpPacket createUserFoldHandle(HSession hSession) {
+	public HttpPacket createUserFoldHandle(HSession hSession) throws HttpErrorException {
 		CreateUserFoldC message = (CreateUserFoldC) hSession.httpPacket.getData();
 		UserData userData = (UserData) hSession.otherData;
 		String userFoldParentId = message.getUserFoldParentId();
 		if (StringUtil.stringIsNull(userFoldParentId)) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_13, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		UserFold userFold = UserFoldAction.createUserFoldChild(message.getUserFoldName(), userFoldParentId, userData.getUserId());
 		if (userFold == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_14, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		CreateUserFoldS.Builder builder = CreateUserFoldS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);
@@ -63,11 +69,12 @@ public class UserFoldService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket updateUserFoldHandle(HSession hSession) {
+	public HttpPacket updateUserFoldHandle(HSession hSession) throws HttpErrorException {
 		UpdateUserFoldC message = (UpdateUserFoldC) hSession.httpPacket.getData();
 		UserFold userFold = UserFoldAction.updateUserFold(message.getUserFoldId(), message.getUserFoldName(), message.getUserFoldState(), message.getIsUpdateUserFoldParent(), message.getUserFoldParentId());
 		if (userFold == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_15, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		UpdateUserFoldS.Builder builder = UpdateUserFoldS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);
@@ -76,19 +83,22 @@ public class UserFoldService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket getUserFoldChildrenHandle(HSession hSession) {
+	public HttpPacket getUserFoldChildrenHandle(HSession hSession) throws HttpErrorException {
 		GetUserFoldChildrenC message = (GetUserFoldChildrenC) hSession.httpPacket.getData();
 		List<UserFold> userFoldList = UserFoldAction.getUserFoldChildren(message.getUserFoldParentId());
 		if (userFoldList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_16, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		List<UserFileExt> userFileList = UserFileAction.getUserFoldChildren(message.getUserFoldParentId());
 		if (userFileList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_16, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		List<UserFold> recursionUserFoldList = UserFoldAction.getRecursionUserFoldList(message.getUserFoldParentId());
 		if (recursionUserFoldList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_16, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		GetUserFoldChildrenS.Builder builder = GetUserFoldChildrenS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);
@@ -108,11 +118,12 @@ public class UserFoldService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket getUserFoldChildrenUserFoldHandle(HSession hSession) {
+	public HttpPacket getUserFoldChildrenUserFoldHandle(HSession hSession) throws HttpErrorException {
 		GetUserFoldChildrenUserFoldC message = (GetUserFoldChildrenUserFoldC) hSession.httpPacket.getData();
 		List<UserFoldExt> userFoldList = UserFoldAction.getUserFoldChildrenWithChildNum(message.getUserFoldParentId());
 		if (userFoldList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_17, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		GetUserFoldChildrenUserFoldS.Builder builder = GetUserFoldChildrenUserFoldS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);
@@ -124,15 +135,17 @@ public class UserFoldService implements IHttpListener {
 		return packet;
 	}
 
-	public HttpPacket getRecyclebinHandle(HSession hSession) {
+	public HttpPacket getRecyclebinHandle(HSession hSession) throws HttpErrorException {
 		GetRecycleBinListC message = (GetRecycleBinListC) hSession.httpPacket.getData();
 		List<UserFold> userFoldList = UserFoldAction.getRecyclebinUserFold(message.getUserFoldTopId());
 		if (userFoldList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_18, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		List<UserFileExt> userFileList = UserFileAction.getRecycleBinUserFile(message.getUserFoldTopId());
 		if (userFileList == null) {
-			return null;
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_18, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}
 		GetRecycleBinListS.Builder builder = GetRecycleBinListS.newBuilder();
 		builder.setHOpCode(hSession.headParam.hOpCode);

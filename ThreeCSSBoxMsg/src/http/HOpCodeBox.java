@@ -1,5 +1,8 @@
 package http;
 
+import protobuf.http.BoxErrorProto.BoxErrorS;
+import protobuf.http.BoxInfoProto.BoxInfoC;
+import protobuf.http.BoxInfoProto.BoxInfoS;
 import protobuf.http.LoginProto.LoginC;
 import protobuf.http.LoginProto.LoginS;
 import protobuf.http.MutliOperateProto.MutilOperateClearRecyclebinC;
@@ -31,6 +34,7 @@ import protobuf.http.UserFoldProto.UpdateUserFoldC;
 import protobuf.http.UserFoldProto.UpdateUserFoldS;
 
 public class HOpCodeBox extends HOpCode {
+	public static int BOX_ERROR = 49999;
 	public static int MD5_CHECK = 50000;
 	public static int UPLOAD_FILE = 50001;
 	public static int LOGIN = 50002;
@@ -46,9 +50,15 @@ public class HOpCodeBox extends HOpCode {
 	public static int MUTLI_REMOVE = 50012;
 	public static int MUTLI_CLEAR_RECYCLEBIN = 50013;
 	public static int GET_USERFOLD_CHILDREN_USERFOLD = 50014;
+	public static int GET_BOX_INFO = 50015;
 
 	public static void init() {
 		Class<?>[] sendAndReturn = new Class[2];
+		sendAndReturn[0] = null;
+		sendAndReturn[1] = BoxErrorS.class;
+		hOpCodeMap.put(BOX_ERROR, sendAndReturn);
+
+		sendAndReturn = new Class[2];
 		sendAndReturn[0] = MD5CheckC.class;
 		sendAndReturn[1] = MD5CheckS.class;
 		hOpCodeMap.put(MD5_CHECK, sendAndReturn);
@@ -122,6 +132,11 @@ public class HOpCodeBox extends HOpCode {
 		sendAndReturn[0] = GetUserFoldChildrenUserFoldC.class;
 		sendAndReturn[1] = GetUserFoldChildrenUserFoldS.class;
 		hOpCodeMap.put(GET_USERFOLD_CHILDREN_USERFOLD, sendAndReturn);
+
+		sendAndReturn = new Class[2];
+		sendAndReturn[0] = BoxInfoC.class;
+		sendAndReturn[1] = BoxInfoS.class;
+		hOpCodeMap.put(GET_BOX_INFO, sendAndReturn);
 
 	}
 }

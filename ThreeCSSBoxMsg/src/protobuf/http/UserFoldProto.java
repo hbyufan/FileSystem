@@ -10931,6 +10931,15 @@ public final class UserFoldProto {
      * <code>optional bool haveChildUserFold = 13;</code>
      */
     boolean getHaveChildUserFold();
+
+    /**
+     * <pre>
+     *最后更新时间戳
+     * </pre>
+     *
+     * <code>optional int64 userFoldUpdateTimeStamp = 14;</code>
+     */
+    long getUserFoldUpdateTimeStamp();
   }
   /**
    * Protobuf type {@code protobuf.http.UserFoldData}
@@ -10957,6 +10966,7 @@ public final class UserFoldProto {
       userFoldChannelType_ = 0;
       userFoldChannelUserId_ = "";
       haveChildUserFold_ = false;
+      userFoldUpdateTimeStamp_ = 0L;
     }
 
     @java.lang.Override
@@ -11056,6 +11066,11 @@ public final class UserFoldProto {
             case 104: {
 
               haveChildUserFold_ = input.readBool();
+              break;
+            }
+            case 112: {
+
+              userFoldUpdateTimeStamp_ = input.readInt64();
               break;
             }
           }
@@ -11427,6 +11442,19 @@ public final class UserFoldProto {
       return haveChildUserFold_;
     }
 
+    public static final int USERFOLDUPDATETIMESTAMP_FIELD_NUMBER = 14;
+    private long userFoldUpdateTimeStamp_;
+    /**
+     * <pre>
+     *最后更新时间戳
+     * </pre>
+     *
+     * <code>optional int64 userFoldUpdateTimeStamp = 14;</code>
+     */
+    public long getUserFoldUpdateTimeStamp() {
+      return userFoldUpdateTimeStamp_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -11478,6 +11506,9 @@ public final class UserFoldProto {
       if (haveChildUserFold_ != false) {
         output.writeBool(13, haveChildUserFold_);
       }
+      if (userFoldUpdateTimeStamp_ != 0L) {
+        output.writeInt64(14, userFoldUpdateTimeStamp_);
+      }
     }
 
     public int getSerializedSize() {
@@ -11528,6 +11559,10 @@ public final class UserFoldProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(13, haveChildUserFold_);
       }
+      if (userFoldUpdateTimeStamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(14, userFoldUpdateTimeStamp_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -11570,6 +11605,8 @@ public final class UserFoldProto {
           .equals(other.getUserFoldChannelUserId());
       result = result && (getHaveChildUserFold()
           == other.getHaveChildUserFold());
+      result = result && (getUserFoldUpdateTimeStamp()
+          == other.getUserFoldUpdateTimeStamp());
       return result;
     }
 
@@ -11607,6 +11644,9 @@ public final class UserFoldProto {
       hash = (37 * hash) + HAVECHILDUSERFOLD_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getHaveChildUserFold());
+      hash = (37 * hash) + USERFOLDUPDATETIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUserFoldUpdateTimeStamp());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11751,6 +11791,8 @@ public final class UserFoldProto {
 
         haveChildUserFold_ = false;
 
+        userFoldUpdateTimeStamp_ = 0L;
+
         return this;
       }
 
@@ -11786,6 +11828,7 @@ public final class UserFoldProto {
         result.userFoldChannelType_ = userFoldChannelType_;
         result.userFoldChannelUserId_ = userFoldChannelUserId_;
         result.haveChildUserFold_ = haveChildUserFold_;
+        result.userFoldUpdateTimeStamp_ = userFoldUpdateTimeStamp_;
         onBuilt();
         return result;
       }
@@ -11874,6 +11917,9 @@ public final class UserFoldProto {
         }
         if (other.getHaveChildUserFold() != false) {
           setHaveChildUserFold(other.getHaveChildUserFold());
+        }
+        if (other.getUserFoldUpdateTimeStamp() != 0L) {
+          setUserFoldUpdateTimeStamp(other.getUserFoldUpdateTimeStamp());
         }
         onChanged();
         return this;
@@ -12637,6 +12683,44 @@ public final class UserFoldProto {
         onChanged();
         return this;
       }
+
+      private long userFoldUpdateTimeStamp_ ;
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFoldUpdateTimeStamp = 14;</code>
+       */
+      public long getUserFoldUpdateTimeStamp() {
+        return userFoldUpdateTimeStamp_;
+      }
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFoldUpdateTimeStamp = 14;</code>
+       */
+      public Builder setUserFoldUpdateTimeStamp(long value) {
+        
+        userFoldUpdateTimeStamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFoldUpdateTimeStamp = 14;</code>
+       */
+      public Builder clearUserFoldUpdateTimeStamp() {
+        
+        userFoldUpdateTimeStamp_ = 0L;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -12766,15 +12850,24 @@ public final class UserFoldProto {
         getCreateUserIdBytes();
 
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <pre>
+     *最后更新时间戳
+     * </pre>
+     *
+     * <code>optional int64 userFileUpdateTimeStamp = 9;</code>
+     */
+    long getUserFileUpdateTimeStamp();
+
+    /**
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     boolean hasFileBase();
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     protobuf.http.UserFoldProto.FileData getFileBase();
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     protobuf.http.UserFoldProto.FileDataOrBuilder getFileBaseOrBuilder();
   }
@@ -12798,6 +12891,7 @@ public final class UserFoldProto {
       userFileState_ = 0;
       userFoldTopId_ = "";
       createUserId_ = "";
+      userFileUpdateTimeStamp_ = 0L;
     }
 
     @java.lang.Override
@@ -12872,7 +12966,12 @@ public final class UserFoldProto {
               createUserId_ = s;
               break;
             }
-            case 74: {
+            case 72: {
+
+              userFileUpdateTimeStamp_ = input.readInt64();
+              break;
+            }
+            case 82: {
               protobuf.http.UserFoldProto.FileData.Builder subBuilder = null;
               if (fileBase_ != null) {
                 subBuilder = fileBase_.toBuilder();
@@ -13155,22 +13254,35 @@ public final class UserFoldProto {
       }
     }
 
-    public static final int FILEBASE_FIELD_NUMBER = 9;
+    public static final int USERFILEUPDATETIMESTAMP_FIELD_NUMBER = 9;
+    private long userFileUpdateTimeStamp_;
+    /**
+     * <pre>
+     *最后更新时间戳
+     * </pre>
+     *
+     * <code>optional int64 userFileUpdateTimeStamp = 9;</code>
+     */
+    public long getUserFileUpdateTimeStamp() {
+      return userFileUpdateTimeStamp_;
+    }
+
+    public static final int FILEBASE_FIELD_NUMBER = 10;
     private protobuf.http.UserFoldProto.FileData fileBase_;
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     public boolean hasFileBase() {
       return fileBase_ != null;
     }
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     public protobuf.http.UserFoldProto.FileData getFileBase() {
       return fileBase_ == null ? protobuf.http.UserFoldProto.FileData.getDefaultInstance() : fileBase_;
     }
     /**
-     * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+     * <code>optional .protobuf.http.FileData fileBase = 10;</code>
      */
     public protobuf.http.UserFoldProto.FileDataOrBuilder getFileBaseOrBuilder() {
       return getFileBase();
@@ -13212,8 +13324,11 @@ public final class UserFoldProto {
       if (!getCreateUserIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, createUserId_);
       }
+      if (userFileUpdateTimeStamp_ != 0L) {
+        output.writeInt64(9, userFileUpdateTimeStamp_);
+      }
       if (fileBase_ != null) {
-        output.writeMessage(9, getFileBase());
+        output.writeMessage(10, getFileBase());
       }
     }
 
@@ -13247,9 +13362,13 @@ public final class UserFoldProto {
       if (!getCreateUserIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, createUserId_);
       }
+      if (userFileUpdateTimeStamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, userFileUpdateTimeStamp_);
+      }
       if (fileBase_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, getFileBase());
+          .computeMessageSize(10, getFileBase());
       }
       memoizedSize = size;
       return size;
@@ -13283,6 +13402,8 @@ public final class UserFoldProto {
           .equals(other.getUserFoldTopId());
       result = result && getCreateUserId()
           .equals(other.getCreateUserId());
+      result = result && (getUserFileUpdateTimeStamp()
+          == other.getUserFileUpdateTimeStamp());
       result = result && (hasFileBase() == other.hasFileBase());
       if (hasFileBase()) {
         result = result && getFileBase()
@@ -13314,6 +13435,9 @@ public final class UserFoldProto {
       hash = (53 * hash) + getUserFoldTopId().hashCode();
       hash = (37 * hash) + CREATEUSERID_FIELD_NUMBER;
       hash = (53 * hash) + getCreateUserId().hashCode();
+      hash = (37 * hash) + USERFILEUPDATETIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUserFileUpdateTimeStamp());
       if (hasFileBase()) {
         hash = (37 * hash) + FILEBASE_FIELD_NUMBER;
         hash = (53 * hash) + getFileBase().hashCode();
@@ -13452,6 +13576,8 @@ public final class UserFoldProto {
 
         createUserId_ = "";
 
+        userFileUpdateTimeStamp_ = 0L;
+
         if (fileBaseBuilder_ == null) {
           fileBase_ = null;
         } else {
@@ -13488,6 +13614,7 @@ public final class UserFoldProto {
         result.userFileState_ = userFileState_;
         result.userFoldTopId_ = userFoldTopId_;
         result.createUserId_ = createUserId_;
+        result.userFileUpdateTimeStamp_ = userFileUpdateTimeStamp_;
         if (fileBaseBuilder_ == null) {
           result.fileBase_ = fileBase_;
         } else {
@@ -13564,6 +13691,9 @@ public final class UserFoldProto {
         if (!other.getCreateUserId().isEmpty()) {
           createUserId_ = other.createUserId_;
           onChanged();
+        }
+        if (other.getUserFileUpdateTimeStamp() != 0L) {
+          setUserFileUpdateTimeStamp(other.getUserFileUpdateTimeStamp());
         }
         if (other.hasFileBase()) {
           mergeFileBase(other.getFileBase());
@@ -14103,17 +14233,55 @@ public final class UserFoldProto {
         return this;
       }
 
+      private long userFileUpdateTimeStamp_ ;
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFileUpdateTimeStamp = 9;</code>
+       */
+      public long getUserFileUpdateTimeStamp() {
+        return userFileUpdateTimeStamp_;
+      }
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFileUpdateTimeStamp = 9;</code>
+       */
+      public Builder setUserFileUpdateTimeStamp(long value) {
+        
+        userFileUpdateTimeStamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *最后更新时间戳
+       * </pre>
+       *
+       * <code>optional int64 userFileUpdateTimeStamp = 9;</code>
+       */
+      public Builder clearUserFileUpdateTimeStamp() {
+        
+        userFileUpdateTimeStamp_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private protobuf.http.UserFoldProto.FileData fileBase_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.http.UserFoldProto.FileData, protobuf.http.UserFoldProto.FileData.Builder, protobuf.http.UserFoldProto.FileDataOrBuilder> fileBaseBuilder_;
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public boolean hasFileBase() {
         return fileBaseBuilder_ != null || fileBase_ != null;
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public protobuf.http.UserFoldProto.FileData getFileBase() {
         if (fileBaseBuilder_ == null) {
@@ -14123,7 +14291,7 @@ public final class UserFoldProto {
         }
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public Builder setFileBase(protobuf.http.UserFoldProto.FileData value) {
         if (fileBaseBuilder_ == null) {
@@ -14139,7 +14307,7 @@ public final class UserFoldProto {
         return this;
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public Builder setFileBase(
           protobuf.http.UserFoldProto.FileData.Builder builderForValue) {
@@ -14153,7 +14321,7 @@ public final class UserFoldProto {
         return this;
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public Builder mergeFileBase(protobuf.http.UserFoldProto.FileData value) {
         if (fileBaseBuilder_ == null) {
@@ -14171,7 +14339,7 @@ public final class UserFoldProto {
         return this;
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public Builder clearFileBase() {
         if (fileBaseBuilder_ == null) {
@@ -14185,7 +14353,7 @@ public final class UserFoldProto {
         return this;
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public protobuf.http.UserFoldProto.FileData.Builder getFileBaseBuilder() {
         
@@ -14193,7 +14361,7 @@ public final class UserFoldProto {
         return getFileBaseFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       public protobuf.http.UserFoldProto.FileDataOrBuilder getFileBaseOrBuilder() {
         if (fileBaseBuilder_ != null) {
@@ -14204,7 +14372,7 @@ public final class UserFoldProto {
         }
       }
       /**
-       * <code>optional .protobuf.http.FileData fileBase = 9;</code>
+       * <code>optional .protobuf.http.FileData fileBase = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           protobuf.http.UserFoldProto.FileData, protobuf.http.UserFoldProto.FileData.Builder, protobuf.http.UserFoldProto.FileDataOrBuilder> 
@@ -15353,7 +15521,7 @@ public final class UserFoldProto {
       "t\030\004 \001(\010\022\030\n\020userFoldParentId\030\005 \001(\t\022\025\n\ruse" +
       "rFileState\030\006 \001(\005\"Q\n\017UpdateUserFileS\022\017\n\007h" +
       "OpCode\030\001 \001(\005\022-\n\010userFile\030\002 \001(\0132\033.protobu" +
-      "f.http.UserFileData\"\331\002\n\014UserFoldData\022\022\n\n" +
+      "f.http.UserFileData\"\372\002\n\014UserFoldData\022\022\n\n" +
       "userFoldId\030\001 \001(\t\022\024\n\014userFoldName\030\002 \001(\t\022\030" +
       "\n\020userFoldParentId\030\003 \001(\t\022\032\n\022userFoldCrea" +
       "teTime\030\004 \001(\t\022\032\n\022userFoldUpdateTime\030\005 \001(\t" +
@@ -15362,17 +15530,19 @@ public final class UserFoldProto {
       "OwnerType\030\t \001(\005\022\027\n\017userFoldOwnerId\030\n \001(\t",
       "\022\033\n\023userFoldChannelType\030\013 \001(\005\022\035\n\025userFol" +
       "dChannelUserId\030\014 \001(\t\022\031\n\021haveChildUserFol" +
-      "d\030\r \001(\010\"\371\001\n\014UserFileData\022\022\n\nuserFileId\030\001" +
-      " \001(\t\022\024\n\014userFileName\030\002 \001(\t\022\030\n\020userFoldPa" +
-      "rentId\030\003 \001(\t\022\032\n\022userFileCreateTime\030\004 \001(\t" +
-      "\022\032\n\022userFileUpdateTime\030\005 \001(\t\022\025\n\ruserFile" +
-      "State\030\006 \001(\005\022\025\n\ruserFoldTopId\030\007 \001(\t\022\024\n\014cr" +
-      "eateUserId\030\010 \001(\t\022)\n\010fileBase\030\t \001(\0132\027.pro" +
-      "tobuf.http.FileData\"\224\001\n\010FileData\022\022\n\nfile" +
-      "BaseId\030\001 \001(\t\022\030\n\020fileBaseRealPath\030\002 \001(\t\022\023",
-      "\n\013fileBaseMd5\030\003 \001(\t\022\025\n\rfileBaseState\030\004 \001" +
-      "(\005\022\031\n\021fileBaseTotalSize\030\005 \001(\003\022\023\n\013fileBas" +
-      "ePos\030\006 \001(\003b\006proto3"
+      "d\030\r \001(\010\022\037\n\027userFoldUpdateTimeStamp\030\016 \001(\003" +
+      "\"\232\002\n\014UserFileData\022\022\n\nuserFileId\030\001 \001(\t\022\024\n" +
+      "\014userFileName\030\002 \001(\t\022\030\n\020userFoldParentId\030" +
+      "\003 \001(\t\022\032\n\022userFileCreateTime\030\004 \001(\t\022\032\n\022use" +
+      "rFileUpdateTime\030\005 \001(\t\022\025\n\ruserFileState\030\006" +
+      " \001(\005\022\025\n\ruserFoldTopId\030\007 \001(\t\022\024\n\014createUse" +
+      "rId\030\010 \001(\t\022\037\n\027userFileUpdateTimeStamp\030\t \001" +
+      "(\003\022)\n\010fileBase\030\n \001(\0132\027.protobuf.http.Fil",
+      "eData\"\224\001\n\010FileData\022\022\n\nfileBaseId\030\001 \001(\t\022\030" +
+      "\n\020fileBaseRealPath\030\002 \001(\t\022\023\n\013fileBaseMd5\030" +
+      "\003 \001(\t\022\025\n\rfileBaseState\030\004 \001(\005\022\031\n\021fileBase" +
+      "TotalSize\030\005 \001(\003\022\023\n\013fileBasePos\030\006 \001(\003b\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15463,13 +15633,13 @@ public final class UserFoldProto {
     internal_static_protobuf_http_UserFoldData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_http_UserFoldData_descriptor,
-        new java.lang.String[] { "UserFoldId", "UserFoldName", "UserFoldParentId", "UserFoldCreateTime", "UserFoldUpdateTime", "UserFoldState", "UserFoldTopId", "CreateUserId", "UserFoldOwnerType", "UserFoldOwnerId", "UserFoldChannelType", "UserFoldChannelUserId", "HaveChildUserFold", });
+        new java.lang.String[] { "UserFoldId", "UserFoldName", "UserFoldParentId", "UserFoldCreateTime", "UserFoldUpdateTime", "UserFoldState", "UserFoldTopId", "CreateUserId", "UserFoldOwnerType", "UserFoldOwnerId", "UserFoldChannelType", "UserFoldChannelUserId", "HaveChildUserFold", "UserFoldUpdateTimeStamp", });
     internal_static_protobuf_http_UserFileData_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_protobuf_http_UserFileData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_http_UserFileData_descriptor,
-        new java.lang.String[] { "UserFileId", "UserFileName", "UserFoldParentId", "UserFileCreateTime", "UserFileUpdateTime", "UserFileState", "UserFoldTopId", "CreateUserId", "FileBase", });
+        new java.lang.String[] { "UserFileId", "UserFileName", "UserFoldParentId", "UserFileCreateTime", "UserFileUpdateTime", "UserFileState", "UserFoldTopId", "CreateUserId", "UserFileUpdateTimeStamp", "FileBase", });
     internal_static_protobuf_http_FileData_descriptor =
       getDescriptor().getMessageTypes().get(14);
     internal_static_protobuf_http_FileData_fieldAccessorTable = new
