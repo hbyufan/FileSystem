@@ -1,4 +1,7 @@
 function NotificationExt() {
+
+    this.BOX_ERROR = "BOX_ERROR";// BOX_ERROR
+
     this.CHANGE_BODY = "changeBody";
     this.ALLFILE_CHANGE_VIEW = "allFileChangeView";
     this.WINDOW_RESIZE = "windowResize";
@@ -25,6 +28,8 @@ function NotificationExt() {
     this.UPDATE_NAME = "updateName";
 
     this.GET_FOLD_CHILDREN_USERFOLD_SUCCESS = "getFoldChildrenUserFoldSuccess";
+
+    this.GET_BOX_INFO_SUCCESS = "getBoxInfoSuccess";
 
 }
 $T.notificationExt = new NotificationExt();

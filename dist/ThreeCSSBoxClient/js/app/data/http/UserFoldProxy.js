@@ -2,6 +2,7 @@ function UserFoldProxy() {
     this.NAME = "UserFoldProxy";
     this.nowFoldChildren = null;
     this.nowRecycleList = null;
+    this.nowSortType = 1;
     this.createUserFold = function (userFoldName, userFoldParentId) {
         var data = {
             "hOpCode": 50003,
@@ -17,6 +18,7 @@ function UserFoldProxy() {
         sendParam.canContinuous = true;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.createUserFoldSuccess = function (result, sendParam) {
@@ -42,6 +44,7 @@ function UserFoldProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.updateUserFoldSuccess = function (result, sendParam) {
@@ -63,10 +66,12 @@ function UserFoldProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.getUserFoldChildrenSuccess = function (result, sendParam) {
         this.nowFoldChildren = result;
+        this.sort();
         this.nowFoldChildren.userFoldMap = [];
         this.nowFoldChildren.userFileMap = [];
         if (this.nowFoldChildren.userFoldList != null) {
@@ -84,6 +89,30 @@ function UserFoldProxy() {
         $T.fileSystemStatus.setNowFold(this.nowFoldChildren.recursionUserFoldList[0]);
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.GET_FOLD_CHILDREN_SUCCESS, result));
     }
+    this.sort = function () {
+        if (this.nowFoldChildren.userFoldList != null) {
+            if (this.nowSortType == 1) {
+                $T.sortTool.sort(this.nowFoldChildren.userFoldList, "userFoldName");
+            } else if (this.nowSortType == 2) {
+                $T.sortTool.sort(this.nowFoldChildren.userFoldList, "userFoldName");
+            } else if (this.nowSortType == 3) {
+                $T.sortTool.sort(this.nowFoldChildren.userFoldList, "userFoldUpdateTimeStamp");
+            }
+        }
+        if (this.nowFoldChildren.userFileList != null) {
+            if (this.nowSortType == 1) {
+                $T.sortTool.sort(this.nowFoldChildren.userFileList, "userFileName");
+            } else if (this.nowSortType == 2) {
+                $T.sortTool.sortTwoProperty(this.nowFoldChildren.userFileList, "fileBase", "fileBaseTotalSize");
+            } else if (this.nowSortType == 3) {
+                $T.sortTool.sort(this.nowFoldChildren.userFileList, "userFileUpdateTimeStamp");
+            }
+        }
+    }
+    this.sortNowFoldChildren = function () {
+        this.sort();
+        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.GET_FOLD_CHILDREN_SUCCESS, this.nowFoldChildren));
+    }
     this.getUserFoldChildrenFail = function (result, sendParam) {
 
     }
@@ -100,9 +129,19 @@ function UserFoldProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.getUserFoldChildrenUserFoldSuccess = function (result, sendParam) {
+        if (result.userFoldList != null) {
+            if (this.nowSortType == 1) {
+                $T.sortTool.sort(result.userFoldList, "userFoldName");
+            } else if (this.nowSortType == 2) {
+                $T.sortTool.sort(result.userFoldList, "userFoldName");
+            } else if (this.nowSortType == 3) {
+                $T.sortTool.sort(result.userFoldList, "userFoldUpdateTimeStamp");
+            }
+        }
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.GET_FOLD_CHILDREN_USERFOLD_SUCCESS, {
             "userFoldParentId": sendParam.data.userFoldParentId,
             "userFoldList": result.userFoldList
@@ -124,6 +163,7 @@ function UserFoldProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.getRecycleBinSuccess = function (result, sendParam) {

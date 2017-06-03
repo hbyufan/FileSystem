@@ -104,6 +104,7 @@ function ContainerRecyclebinMediator() {
             title: "彻底删除",
             type: 1,
             area: ['460px', 'auto'],
+            move: false,
             btn1: function (index, layero) {
                 layer.close(index);
                 $T.mutliOperateProxy.remove(userFoldIds, userFileIds);
@@ -118,6 +119,7 @@ function ContainerRecyclebinMediator() {
             title: "清空回收站",
             type: 1,
             area: ['460px', 'auto'],
+            move: false,
             btn1: function (index, layero) {
                 layer.close(index);
                 $T.mutliOperateProxy.clearRecyclebin($T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID));
@@ -147,6 +149,7 @@ function ContainerRecyclebinMediator() {
             title: "确认还原",
             type: 1,
             area: ['460px', 'auto'],
+            move: false,
             btn1: function (index, layero) {
                 layer.close(index);
                 $T.mutliOperateProxy.offRecyclebin(userFoldIds, userFileIds);

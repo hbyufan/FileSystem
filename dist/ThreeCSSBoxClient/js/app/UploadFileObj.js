@@ -62,8 +62,8 @@ UploadFileObj.prototype.createView = function (text) {
         '<span class="alreadyP_PJY" id="' + this.id + '_text"></span>' +
         '</div>' +
         '<div class="file_operate">' +
-        '<div class="start" id="' + this.id + '_stop"></div>' +
-        '<div class="pause" id="' + this.id + '_start"></div>' +
+        '<div class="pause" id="' + this.id + '_stop"></div>' +
+        '<div class="start" id="' + this.id + '_start"></div>&nbsp;&nbsp;&nbsp;&nbsp;' +
         '<div id="' + this.id + '_retry"></div>' +
         '<div class="cancel" id="' + this.id + '_cancel"></div>' +
         '</div>' +
@@ -107,6 +107,8 @@ UploadFileObj.prototype.addListener = function () {
     this.onFoldClickListener(this, this.onFoldClick);
     $("#" + this.id + "_start").hide();
     $("#" + this.id + "_retry").hide();
+    this.updateProgress("0%");
+    this.updateProgress1("100%");
     this.view1.css({cursor: "pointer"});
 }
 UploadFileObj.prototype.onView1ClickListener = function (uploadFileObj, call) {
@@ -190,6 +192,8 @@ UploadFileObj.prototype.onFoldClick = function () {
 UploadFileObj.prototype.stop = function () {
     $("#" + this.id + "_start").show();
     $("#" + this.id + "_stop").hide();
+    this.updateView("暂停");
+    this.updateView1("暂停");
 }
 UploadFileObj.prototype.clear = function () {
     this.file = null;

@@ -1,10 +1,22 @@
 function ImagePreviewMediator() {
-
+    this.nowUserFoldChildrenImage;
+    this.showPos = 0;
+    this.pageSize = 5;
+    this.pageObj;
+    this.nowUserFileImage;
+    this.imageRotate = [];
     this.init = function (view, userFileId) {
-        var result = this.initView(userFileId);
-        if (!result) {
-            return;
-        }
+
+        this.nowUserFoldChildrenImage = [];
+        this.initView(userFileId);
+        $("#yunLeft").on("click", this.onLeftClick);
+        $("#yunRight").on("click", this.onRightClick);
+
+        $("#image_preview_left_rotate").on("click", this.onLeftRotate);
+        $("#image_preview_right_rotate").on("click", this.onRightRotate);
+        $("#image_preview_download").on("click", this.onDownload);
+        $("#image_preview_delete").on("click", this.onDelete);
+
         var w1 = $(window).width();
         var h1 = $(window).height();
         layer.open({
@@ -14,162 +26,9 @@ function ImagePreviewMediator() {
             area: [w1 + "px", h1 + "px"],
             offset: ['0', '0'],
             success: function (index, layero) {
-                var self = this;
-                $(window).resize(function () {
-                    var w1 = $(window).width();
-                    var h1 = $(window).height();
-                    $(".layer1_P").css({width: w1, height: h1});
-                    var windowH = $(window).height();
-                    var sw = window.screen.width * 0.9;
-                    var wrapH = windowH * 0.65;
-                    $(".photoBox ").css("margin-left", -sw / 2);
-                    $(".yunPhotoWrap").css("height", wrapH);
-                    $(".photoBox,.photoBox >div").css({
-                        "height": wrapH,
-                        "width": sw
-                    });
-                    $(".photoBox").css({
-                        "height": wrapH,
-                        "width": sw,
-                        "margin-top": -wrapH / 2 + "px"
-                    });
-                    for (var i = 0; i < $(".photoBox").length; i++) {
-                        var imgW = $(".photoBox").eq(i).find("img").width();
-                        var imgH = $(".photoBox").eq(i).find("img").height();
-                        var outerW = $(".photoBox").width();
-                        var outerH = $(".photoBox").height();
-                        if (imgW >= imgH) {
-                            if (outerW > outerH) {
-                                $(".photoBox").eq(i).find("img").width(outerH);
-                            } else {
-                                $(".photoBox").eq(i).find("img").width(outerW);
-                            }
-                        } else {
-                            if (outerW > outerH) {
-                                $(".photoBox").eq(i).find("img").height(outerH);
-                            } else {
-                                $(".photoBox").eq(i).find("img").height(outerW);
-                            }
-                        }
-
-                    }
-                    $(".photoBox").css("display:none");
-                })
-                var windowH = $(window).height();
-                var sw = window.screen.width * 0.9;
-                var wrapH = windowH * 0.65;
-                $(".photoBox ").css("margin-left", -sw / 2);
-                $(".yunPhotoWrap").css("height", wrapH);
-                $(".photoBox,.photoBox >div").css({
-                    "height": wrapH,
-                    "width": sw
-                });
-                $(".photoBox").css({
-                    "height": wrapH,
-                    "width": sw,
-                    "margin-top": -wrapH / 2 + "px"
-                });
-                for (var i = 0; i < $(".photoBox").length; i++) {
-                    var imgW = $(".photoBox").eq(i).find("img").width();
-                    var imgH = $(".photoBox").eq(i).find("img").height();
-                    var outerW = $(".photoBox").width();
-                    var outerH = $(".photoBox").height();
-                    if (imgW >= imgH) {
-                        if (outerW > outerH) {
-                            $(".photoBox").eq(i).find("img").width(outerH);
-                        } else {
-                            $(".photoBox").eq(i).find("img").width(outerW);
-                        }
-                    } else {
-                        if (outerW > outerH) {
-                            $(".photoBox").eq(i).find("img").height(outerH);
-                        } else {
-                            $(".photoBox").eq(i).find("img").height(outerW);
-                        }
-                    }
-
-                }
-                $(".photoBox").css("display:none");
-                //点击剪头切换图片
-                var len = $(".photoBox").length;
-                $(".leftBtn,#yunLeft").click(function () {
-                    console.log(1)
-                    num = 0;
-                    var index = $(".show").index();
-
-                    if (index == 0) {
-                        alert("已经是第一张");
-                    }
-                    else {
-                        $(".photoBox").eq(index - 1).addClass("show").siblings().removeClass("show");
-
-                    }
-                    $(".photoBox.show>img").removeAttr("style"); //恢复原状
-                });
-                $(".rightBtn,#yunRight").click(function () {
-                    num = 0;
-                    var index = $(".show").index();
-                    if (index == len - 1) {
-                        alert("已经是最后一张");
-                    }
-                    else {
-                        $(".photoBox").eq(index + 1).addClass("show").siblings().removeClass("show");
-                    }
-                    $(".photoBox.show>img").removeAttr("style"); //恢复原状
-
-                });
-
                 //关闭按钮
                 $(".yunCloseBtn").on("click", function () {
                     $(".layer1_P .layui-layer-close1").trigger("click")
-                });
-
-                //底部操作按钮
-                //左旋转
-                var num = 0;
-                var arr = [];
-                $(".li1").on("click", function () {
-                    var x = $(".photoBox.show").index();
-                    if (arr[x] != undefined) {
-                        num = arr[x] - 90
-                    } else {
-                        num -= 90;
-                    }
-
-                    arr[x] = num;
-
-                    $(".photoBox.show .img").rotate(num);
-                });
-                //右旋转
-                $(".li2").on("click", function () {
-                    var x = $(".photoBox.show").index();
-                    if (arr[x] != undefined) {
-                        num = arr[x] + 90
-                    } else {
-                        num += 90;
-                    }
-                    arr[x] = num;
-                    $(".photoBox.show .img").rotate(num);
-
-                });
-                //删除
-                $(".li4").click(function () {
-                    layer.confirm('<br>确认要把所选文件放入回收站吗？<br>删除的文件可在10天内通过回收站还原', {
-                        title: "确认删除",
-                        skin: "layer2_P",
-                        type: 1,
-                        area: ['460px', 'auto'],
-                        btn1: function (index, layero) {
-                            layer.close(index);
-                            //按钮确定的回调
-                            $(".photoBox.show").remove().siblings().removeClass("hide").addClass("show");
-                        },
-                        btn2: function (index, layero) {
-                            //按钮取消的回调
-                            alert("点击了取消");
-                            //return false //开启该代码可禁止点击该按钮关闭
-                        }
-                    })
                 });
 
                 //左右剪头hover效果
@@ -188,51 +47,240 @@ function ImagePreviewMediator() {
             }
         })
     }
+    this.onLeftRotate = function () {
+        if (!$("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_previewimg").hasClass("preview_complete")) {
+            return;
+        }
+        var image = $("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_previewimg");
+        if ($T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] == null) {
+            $T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] = 90;
+        } else {
+            $T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] -= 90;
+        }
+        image.rotate($T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId]);
+    }
+    this.onRightRotate = function () {
+        if (!$("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_previewimg").hasClass("preview_complete")) {
+            return;
+        }
+        var image = $("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_previewimg");
+        if ($T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] == null) {
+            $T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] = 90;
+        } else {
+            $T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId] += 90;
+        }
+        image.rotate($T.imagePreviewMediator.imageRotate[$T.imagePreviewMediator.nowUserFileImage.userFileId]);
+    }
+    this.onDownload = function () {
+        window.open($T.userFileProxy.getUserFile($T.imagePreviewMediator.nowUserFileImage.userFileId));
+    }
+    this.onDelete = function () {
+        layer.confirm('<br>确认要把所选文件放入回收站吗？<br>删除的文件可在10天内通过回收站还原', {
+            title: "确认删除",
+            skin: "layer2_P",
+            type: 1,
+            area: ['460px', 'auto'],
+            move: false,
+            btn1: function (index, layero) {
+                layer.close(index);
+                $T.mutliOperateProxy.toRecyclebin(null, [$T.imagePreviewMediator.nowUserFileImage.userFileId]);
+            },
+            btn2: function (index, layero) {
+                layer.close(index);
+            }
+        })
+    }
+    this.onLeftClick = function () {
+        $T.imagePreviewMediator.showPos--;
+        if ($T.imagePreviewMediator.showPos < 1) {
+            $T.imagePreviewMediator.showPos = 1;
+            return;
+        }
+        $T.imagePreviewMediator.recountImage();
+
+    }
+    this.onRightClick = function () {
+        $T.imagePreviewMediator.showPos++;
+        if ($T.imagePreviewMediator.showPos > $T.imagePreviewMediator.nowUserFoldChildrenImage.length) {
+            $T.imagePreviewMediator.showPos = $T.imagePreviewMediator.nowUserFoldChildrenImage.length;
+            return;
+        }
+        $T.imagePreviewMediator.recountImage();
+
+    }
+    this.recountImage = function () {
+        var currentPage = parseInt(Math.ceil($T.imagePreviewMediator.showPos / $T.imagePreviewMediator.pageSize));
+        var pageObj = $T.pageFormat.format(currentPage, $T.imagePreviewMediator.pageSize, $T.imagePreviewMediator.nowUserFoldChildrenImage.length);
+        if (pageObj.currentPage != $T.imagePreviewMediator.pageObj.currentPage) {
+            $T.imagePreviewMediator.pageObj = pageObj;
+            $T.imagePreviewMediator.changeView();
+        } else {
+            $T.imagePreviewMediator.pageObj = pageObj;
+            $("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_imagepreview").css("visibility", "hidden");
+            $T.imagePreviewMediator.nowUserFileImage = $T.imagePreviewMediator.nowUserFoldChildrenImage[$T.imagePreviewMediator.showPos - 1];
+            if ($("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_previewimg").hasClass("preview_complete")) {
+                $("#" + $T.imagePreviewMediator.nowUserFileImage.userFileId + "_imagepreview").css("visibility", "visible");
+            }
+
+        }
+        this.resetName();
+    }
+    this.resetName = function () {
+        $("#image_preview_filename").text(this.nowUserFileImage.userFileName);
+        $("#image_preview_foldName").text("所属文件夹：" + $T.fileSystemStatus.nowFoldName);
+        $("#image_preview_time").text("修改日期:" + this.nowUserFileImage.userFileUpdateTime);
+    }
     // 注销方法
     this.dispose = function () {
 
     }
     // 关心消息数组
-    this.listNotificationInterests = [];
+    this.listNotificationInterests = [$T.notificationExt.GET_FOLD_CHILDREN_SUCCESS];
     // 关心的消息处理
     this.handleNotification = function (data) {
-
-    }
-    this.initView = function (userFileId) {
-        if ($T.userFoldProxy.nowFoldChildren == null || $T.userFoldProxy.nowFoldChildren.userFileList == null) {
-            return false;
+        switch (data[0].name) {
+            case $T.notificationExt.GET_FOLD_CHILDREN_SUCCESS:
+                this.getFoldChildrenSuccess();
+                break;
         }
-        var j = 0;
+    }
+    this.getFoldChildrenSuccess = function () {
+        if ($T.userFoldProxy.nowFoldChildren == null || $T.userFoldProxy.nowFoldChildren.userFileList == null) {
+            $(".layer1_P .layui-layer-close1").trigger("click");
+            return;
+        }
+        //清空
+        this.nowUserFoldChildrenImage = [];
         for (var i = 0; i < $T.userFoldProxy.nowFoldChildren.userFileList.length; i++) {
             var userFile = $T.userFoldProxy.nowFoldChildren.userFileList[i];
             if (!$T.postfixUtil.isImage(userFile.userFileName)) {
                 continue;
             }
-            j++;
+            this.nowUserFoldChildrenImage.push(userFile);
+        }
+        if (this.nowUserFoldChildrenImage.length == 0) {
+            $(".layer1_P .layui-layer-close1").trigger("click");
+            return;
+        }
+        if (this.showPos > this.nowUserFoldChildrenImage.length) {
+            this.showPos = this.nowUserFoldChildrenImage.length;
+        }
+        var currentPage = parseInt(Math.ceil(this.showPos / this.pageSize));
+        this.pageObj = $T.pageFormat.format(currentPage, this.pageSize, this.nowUserFoldChildrenImage.length);
+        this.changeView();
+    }
+    this.initView = function (userFileId) {
+        if ($T.userFoldProxy.nowFoldChildren == null || $T.userFoldProxy.nowFoldChildren.userFileList == null) {
+            return;
+        }
+        for (var i = 0; i < $T.userFoldProxy.nowFoldChildren.userFileList.length; i++) {
+            var userFile = $T.userFoldProxy.nowFoldChildren.userFileList[i];
+            if (!$T.postfixUtil.isImage(userFile.userFileName)) {
+                continue;
+            }
+            this.nowUserFoldChildrenImage.push(userFile);
+            if (userFile.userFileId == userFileId) {
+                this.showPos = this.nowUserFoldChildrenImage.length;
+            }
+        }
+        var currentPage = parseInt(Math.ceil(this.showPos / this.pageSize));
+        this.pageObj = $T.pageFormat.format(currentPage, this.pageSize, this.nowUserFoldChildrenImage.length);
+        this.changeView();
+    }
+    this.changeView = function () {
+        $("#image_preview_container")[0].innerHTML = "";
+        for (var i = this.pageObj.start; i < this.pageObj.end; i++) {
+            var userFile = this.nowUserFoldChildrenImage[i];
             var view = this.createImageView(userFile);
             view.addClass("photoBox");
-            if (userFile.userFileId == userFileId) {
-                view.addClass("show");
+            if ((this.showPos - 1) == i) {
+                this.nowUserFileImage = userFile;
             }
             $("#image_preview_container").append(view);
+            view.css("visibility", "hidden");
+            var img = $("#" + userFile.userFileId + "_previewimg");
+            img.load(this.onImageLoadCompelte);
         }
-        if (j > 0) {
-            return true;
-        } else {
-            return false;
-        }
-
+        var windowH = $(window).height();
+        var sw = window.screen.width * 0.9;
+        var wrapH = windowH * 0.65;
+        $(".yunPhotoWrap").css("height", wrapH);
+        $(".photoBox,.photoBox >div").css({
+            "height": wrapH,
+            "width": sw
+        });
+        $(".photoBox").css({
+            "height": wrapH,
+            "width": sw,
+        });
+        this.resetName();
+        this.imageRotate = [];
     }
+    this.onImageLoadCompelte = function () {
+        var windowH = $(window).height();
+        var sw = window.screen.width * 0.9;
+        var wrapH = windowH * 0.65;
+
+        var marginleft = 0;
+        var margintop = 0;
+
+        var img = $("#" + this.id);
+        var idArray = this.id.split("_");
+        var photoBox = $("#" + idArray[0] + "_imagepreview");
+        var imgWidth = img.width();
+        var imgHeight = img.height();
+        var photoBoxWidth = photoBox.width();
+        var photoBoxHeight = photoBox.height();
+        var newImgWidth;
+        var newImgHeight;
+        //规则1：图片高度与宽度不能大于div高度
+        //规则2：图片宽度不能大于div宽度
+        //规则3：等比例缩放
+        if (imgWidth >= imgHeight) {
+            //以宽度为标准缩放
+            if (imgWidth <= photoBoxHeight) {
+                //不用缩放
+                newImgWidth = imgWidth;
+                newImgHeight = imgHeight;
+            } else {
+                newImgWidth = photoBoxHeight;
+                newImgHeight = (imgHeight / imgWidth) * newImgWidth;
+            }
+        } else {
+            //以高度为标准缩放
+            if (imgHeight <= photoBoxHeight) {
+                //不用缩放
+                newImgWidth = imgWidth;
+                newImgHeight = imgHeight;
+            } else {
+                newImgHeight = photoBoxHeight;
+                newImgWidth = (imgWidth / imgHeight) * newImgHeight;
+            }
+        }
+        img.height(newImgHeight);
+        img.width(newImgWidth);
+
+        marginleft += (photoBoxWidth) / 2;
+        margintop += (photoBoxHeight) / 2;
+        photoBox.css("margin-left", -marginleft);
+        photoBox.css("margin-top", -margintop);
+        img.addClass("preview_complete");
+        if (idArray[0] == $T.imagePreviewMediator.nowUserFileImage.userFileId) {
+            photoBox.css("visibility", "visible");
+        }
+    }
+
     this.createImageView = function (userFile) {
         var view = document.createElement("div");
         var body =
             '<div>' +
-            '<img src="' + $T.userFileProxy.getUserFileImage(userFile.userFileId) + '" class="img" num="0"/>' +
+            '<img id="' + userFile.userFileId + '_previewimg" src="' + $T.userFileProxy.getUserFileImage(userFile.userFileId) + '" class="img" num="0"/>' +
 
             '<span class="leftBtn "></span>' +
             '<span class="rightBtn "></span>' +
             '</div>';
         view.innerHTML = body;
+        view.id = userFile.userFileId + "_imagepreview";
         return $(view);
     }
 

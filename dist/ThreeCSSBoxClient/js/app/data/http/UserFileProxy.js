@@ -18,6 +18,7 @@ function UserFileProxy() {
         sendParam.data = data;
         sendParam.token = $T.cookieParam.getCookieParam($T.cookieName.TOKEN);
         sendParam.url = $T.url.boxUrl;
+        sendParam.canContinuous = true;
         $T.httpUtil.send(sendParam);
     }
     this.updateUserFileSuccess = function (result, sendParam) {

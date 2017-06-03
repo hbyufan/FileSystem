@@ -954,3 +954,18 @@ html #layuicss-skinlayercss {
 }
 .layui-layer-btn{
     padding: 32px 0;}
+/*msg*/
+.layui-layer-msg .layui-layer-padding{
+    text-align: center;
+}
+.layui-layer-msg .layui-layer-content .layui-layer-ico{
+    top:11px;
+}
+.layui-layer-msg .layui-layer-padding{
+    padding: 15px 20px 15px 55px;
+}
+.layui-layer-msg{
+   box-shadow: 0px 0px 5px rgba(0,0,0,.2);
+   border: 0;
+   border: 1px solid #ddd;
+}

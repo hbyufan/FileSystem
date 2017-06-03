@@ -11,7 +11,7 @@
 .garbage_PJY.on>a{background-position:0 -19px;color:#fff}
 .allFile_PJY.on>a{background-position:0 -19px;color:#fff}
 .process{width:100%;height:40px;position:absolute;bottom:0;left:0;background-color:#222222}
-.process>div{height:40px;width:130px;background:#ffae00}
+.process>div{height:40px;width:0px;background:#ffae00}
 .process>p{width:100%;text-align:center;line-height:40px;font-size:12px;position:absolute;bottom:0;left:0;z-index: 10;color:#fff}
 .process>p>span{padding:0 5px;}
 .nav_right{width:258px;position:absolute;right:0;top:0;}
@@ -56,7 +56,7 @@
 .list_PJY .li1_PJY>.txt_PJY{background-image: url("../images/txt.png")}
 .list_PJY .li1_PJY>.xls_PJY{background-image: url("../images/xls.png")}
 .list_PJY .li1_PJY>.fileOther_PJY{background-image: url("../images/qitageshi.png")}
-.list_PJY .li1_PJY>span{display:inline-block;height:55px;line-height:55px;padding-left:5px;width:75%;white-space: nowrap;overflow:hidden;text-overflow: ellipsis;vertical-align: top;font-size: 14px}
+.list_PJY .li1_PJY>span{display:inline-block;height:55px;line-height:55px;padding-left:5px;max-width:75%;white-space: nowrap;overflow:hidden;text-overflow: ellipsis;vertical-align: top;font-size: 14px}
 .pl20{padding-left:20px}
 .list_PJY .li2_PJY>div{height:755px;width:100%;box-sizing: border-box;padding-top:20px;}
 .list_PJY .li2_PJY>div>a,.list_PJY .li2_PJY dt{display:inline-block;width:16px;height:16px;vertical-align: top}
@@ -141,8 +141,8 @@ i.icon11{background: url("../images/reback.png") no-repeat 0 center}
 .short_PJY .changeBox_PJY{text-align:center;position:relative;margin-top:10px}
 .short_PJY .changeBox_PJY>input{width:95px;display:inline-block}
 .short_PJY .changeBox_PJY>i{display:block}
-.short_PJY .changeBox_PJY>.yes_PJY{position:absolute;top:37px;left:70px}
-.short_PJY .changeBox_PJY>.no_PJY{position:absolute;top:37px;left:30px}
+.short_PJY .changeBox_PJY>.yes_PJY{position:absolute;top:37px;left:30px}
+.short_PJY .changeBox_PJY>.no_PJY{position:absolute;top:37px;left:70px}
 .short_PJY .list_PJY.listSty1_PJY{overflow:hidden;padding:20px 0 0px 20px }
 .resetBtn_PJY.s-btn.disabled{background:url("../images/disabled.png") no-repeat center center;color:#d2d2d2;cursor: not-allowed;}
 .resetBtn_PJY.s-btn.disabled:hover{background:url("../images/disabled.png") no-repeat center center;color:#d2d2d2}

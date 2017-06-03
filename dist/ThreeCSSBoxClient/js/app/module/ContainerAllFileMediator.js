@@ -30,6 +30,7 @@ function ContainerAllFileMediator() {
             title: "确认删除",
             type: 1,
             area: ['460px', 'auto'],
+            move: false,
             btn1: function (index, layero) {
                 layer.close(index);
                 $T.mutliOperateProxy.toRecyclebin(userFoldIds, userFileIds);

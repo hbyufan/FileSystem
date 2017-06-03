@@ -15,12 +15,17 @@
     $T.version.loadScript("js/app/Url.js");
     $T.version.loadScript("js/app/CookieParam.js");
     $T.version.loadScript("js/app/CookieName.js");
+    $T.version.loadScript("js/app/BoxErrorFilter.js");
+    $T.version.loadScript("js/app/BoxErrorMsg.js");
+    $T.version.loadScript("js/app/SortTool.js");
+    $T.version.loadScript("js/app/PageFormat.js");
 
     $T.version.loadScript("js/app/data/http/UploadFileProxy.js");
     $T.version.loadScript("js/app/data/http/TokenProxy.js");
     $T.version.loadScript("js/app/data/http/UserFoldProxy.js");
     $T.version.loadScript("js/app/data/http/UserFileProxy.js");
     $T.version.loadScript("js/app/data/http/MutliOperateProxy.js");
+    $T.version.loadScript("js/app/data/http/BoxInfoProxy.js");
 
     $T.version.loadScript("js/app/IndexMediator.js");
     $T.version.loadScript("js/app/module/LeftMediator.js");
@@ -56,8 +61,8 @@
         //初始化内部类
         $T.version.init();
         //初始化过滤器
-        var testFilter = new TestFilter();
-        $T.httpResultFilter.addFilter(testFilter);
+        var boxErrorFilter = new BoxErrorFilter();
+        $T.httpResultFilter.addFilter(boxErrorFilter);
         //初始化控制器
         $T.indexMediator.init();
         $T.register.register($T.indexMediator);

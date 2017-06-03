@@ -25,7 +25,7 @@ function IndexMediator() {
 
     }
     // 关心消息数组
-    this.listNotificationInterests = [$T.notificationExt.CHANGE_BODY, $T.notificationExt.OPEN_IMAGE_PREVIEW, $T.notificationExt.OPEN_MOVE_TO];
+    this.listNotificationInterests = [$T.notificationExt.CHANGE_BODY, $T.notificationExt.OPEN_IMAGE_PREVIEW, $T.notificationExt.OPEN_MOVE_TO, $T.notificationExt.BOX_ERROR, $T.notification.SYSTEM_ERROR];
     // 关心的消息处理
     this.handleNotification = function (data) {
         switch (data[0].name) {
@@ -41,6 +41,18 @@ function IndexMediator() {
                 break;
             case $T.notificationExt.OPEN_MOVE_TO:
                 $T.moduleManager.loadModule("html/move_to.html", document.getElementById("layer1"), "move_to", $T.moveToMediator, data[0].body);
+                break;
+            case $T.notificationExt.BOX_ERROR:
+                layer.msg($T.boxErrorMsg.errorMap[data[0].body], {
+                    time: 3000,
+                    icon: 2
+                });
+                break;
+            case $T.notification.SYSTEM_ERROR:
+                layer.msg(data[0].body, {
+                    time: 3000,
+                    icon: 2
+                });
                 break;
         }
 

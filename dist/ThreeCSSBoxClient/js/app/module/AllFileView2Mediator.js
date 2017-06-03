@@ -20,7 +20,7 @@ function AllFileView2Mediator() {
             $(this).find(".li2_PJY>div").addClass("hide");
         });
 
-        $(".list_PJY.listSty1_PJY").on("click", ".li1_PJY>b", this.onClickIcon);
+        $(".list_PJY.listSty1_PJY").on("click", ".li1_PJY>b,.li1_PJY>div", this.onClickIcon);
         $("#allfile_view2_userfilelist").on("click", ".updateName", this.onUpdateName);
 
         $(".listHead_PJY").on("ifChecked", ".allCheck", this.allCheckClick);
@@ -71,14 +71,14 @@ function AllFileView2Mediator() {
     }
     this.onClickIcon = function () {
         if ($(this).hasClass("userFold")) {
-            var userFoldId = this.id;
-            var userFold = $T.userFoldProxy.nowFoldChildren.userFoldMap[userFoldId];
+            var userFoldId = this.id.split("_");
+            var userFold = $T.userFoldProxy.nowFoldChildren.userFoldMap[userFoldId[0]];
             if (userFold != null) {
                 $T.userFoldProxy.getUserFoldChildren(userFold.userFoldId);
             }
         } else if ($(this).hasClass("userFile")) {
-            var userFileId = this.id;
-            var userFile = $T.userFoldProxy.nowFoldChildren.userFileMap[userFileId];
+            var userFileId = this.id.split("_");
+            var userFile = $T.userFoldProxy.nowFoldChildren.userFileMap[userFileId[0]];
             if ($T.postfixUtil.isImage(userFile.userFileName)) {
                 $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.OPEN_IMAGE_PREVIEW, userFile.userFileId));
             }
@@ -215,6 +215,10 @@ function AllFileView2Mediator() {
         event.stopPropagation();
     }
     this.createNewFold = function () {
+        var createFoldBody = $("#allfile_view2_userfilelist").find(".createFoldBody");
+        if (createFoldBody.length > 0) {
+            return;
+        }
         var view = this.createNewFoldView();
         $("#allfile_view2_userfilelist").prepend(view);
         $('input:checkbox').iCheck('destroy');
@@ -287,8 +291,8 @@ function AllFileView2Mediator() {
             '<div class="checkbox">' +
             '<input type="checkbox" class="Check" id="' + userFold.userFoldId + '_checkFold"/>' +
             '</div>' +
-            '<b id="' + userFold.userFoldId + '" class="fileBag_PJY userFold"></b>' +
-            '<div class="fileName_PJY">' + userFold.userFoldName + '</div>' +
+            '<b id="' + userFold.userFoldId + '_b" class="fileBag_PJY userFold"></b>' +
+            '<div id="' + userFold.userFoldId + '_span" class="fileName_PJY userFold">' + userFold.userFoldName + '</div>' +
             '<div class="changeBox_PJY" id="' + userFold.userFoldId + '_changeBox">' +
             '<input type="text" value="' + userFold.userFoldName + '" class="updateName" id="' + userFold.userFoldId + '_input"/>' +
             '<i class="yes_PJY updateName" id="' + userFold.userFoldId + '_yes"></i>' +
@@ -310,7 +314,7 @@ function AllFileView2Mediator() {
             '</div>' +
 
             this.getElementByFileName(userFile) +
-            '<div class="fileName_PJY">' + userFile.userFileName + '</div>' +
+            '<div id="' + userFile.userFileId + '_span" class="fileName_PJY userFile">' + userFile.userFileName + '</div>' +
             '<div class="changeBox_PJY" id="' + userFile.userFileId + '_changeBox">' +
             '<input type="text" value="' + userFile.userFileName + '" class="updateName" id="' + userFile.userFileId + '_input"/>' +
             '<i class="yes_PJY updateName" id="' + userFile.userFileId + '_yes"></i>' +
@@ -324,9 +328,9 @@ function AllFileView2Mediator() {
     }
     this.getElementByFileName = function (userFile) {
         if ($T.postfixUtil.isImage(userFile.userFileName)) {
-            return '<b id="' + userFile.userFileId + '" class="userFile"><img style="width:50px;height:50px" src="' + $T.userFileProxy.getUserFileImage(userFile.userFileId) + '"></b>';
+            return '<b id="' + userFile.userFileId + '_b" class="userFile"><img style="width:50px;height:50px" src="' + $T.userFileProxy.getUserFileImage(userFile.userFileId) + '"></b>';
         } else {
-            return '<b id="' + userFile.userFileId + '" class="' + $T.postfixUtil.getClassByFileName2(userFile.userFileName) + ' userFile"></b>';
+            return '<b id="' + userFile.userFileId + '_b" class="' + $T.postfixUtil.getClassByFileName2(userFile.userFileName) + ' userFile"></b>';
         }
     }
 

@@ -7,6 +7,7 @@ function MoveToMediator() {
             skin: "layer_PJY",
             area: ['520px', '340px'],
             title: "移动到",
+            move: false,
             content: $("#layer1"),
             success: function (layero, index) {
                 $(".layerWin_PJY").mCustomScrollbar({
