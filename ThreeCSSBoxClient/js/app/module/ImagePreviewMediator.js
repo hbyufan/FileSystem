@@ -219,7 +219,7 @@ function ImagePreviewMediator() {
     this.onImageLoadCompelte = function () {
         var windowH = $(window).height();
         var sw = window.screen.width * 0.9;
-        var wrapH = windowH * 0.65;
+        var wrapH = windowH * 0.75;
 
         var marginleft = 0;
         var margintop = 0;
@@ -261,7 +261,11 @@ function ImagePreviewMediator() {
         img.width(newImgWidth);
 
         marginleft += (photoBoxWidth) / 2;
-        margintop += (photoBoxHeight) / 2;
+        if (windowH > 730) {
+            margintop += ((photoBoxHeight) + windowH * 0.175 ) / 2;
+        } else {
+            margintop += ((photoBoxHeight)) / 2;
+        }
         photoBox.css("margin-left", -marginleft);
         photoBox.css("margin-top", -margintop);
         img.addClass("preview_complete");
