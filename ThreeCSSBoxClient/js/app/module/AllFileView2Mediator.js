@@ -35,7 +35,7 @@ function AllFileView2Mediator() {
         $T.userFoldProxy.getUserFoldChildren($T.fileSystemStatus.nowFoldId);
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.ALLFILE_CHANGE_VIEW, 2));
     }
-    this.onUpdateName = function () {
+    this.onUpdateName = function (event) {
         if ($(this).hasClass("yes_PJY")) {
             var uuidArray = this.id.split("_");
             var changeBox = $("#" + uuidArray[0] + "_changeBox");
@@ -198,7 +198,7 @@ function AllFileView2Mediator() {
             }
         });
     }
-    this.onSendCreateFold = function () {
+    this.onSendCreateFold = function (event) {
         if ($(this).hasClass("yes_PJY")) {
             var uuidArray = this.id.split("_");
             var obj = $("#" + uuidArray[0]);

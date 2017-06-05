@@ -84,18 +84,18 @@ function AllFileHeadMediator() {
         }));
     }
 
-    this.updateName = function () {
-        event.stopPropagation();
+    this.updateName = function (event) {
         var checkList = $T.allFileHeadMediator.getCheckedList();
         if (checkList.length != 1) {
             return;
         }
         var checkIdArray = checkList[0].id.split("_");
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.UPDATE_NAME, checkIdArray[0]));
-    }
-    this.createFold = function () {
         event.stopPropagation();
+    }
+    this.createFold = function (event) {
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.CREATE_USER_FOLD));
+        event.stopPropagation();
     }
     this.onChooseDownload = function () {
         var checkArray = $T.allFileHeadMediator.getCheckedList();
