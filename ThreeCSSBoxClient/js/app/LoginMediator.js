@@ -1,6 +1,24 @@
 function LoginMediator() {
     this.init = function (view) {
         $("#loginUCenter").on("click", this.onLoginChat);
+
+        $("input").val("");
+        $(".inputBox").click(function () {
+            $(this).children("input").focus();
+            $(this).children("input").on("propertychange input", function () {
+                if ($(this).val() !== "") {
+                    $(this).next("p").hide()
+                    $(this).siblings(".clearBtn").show()
+                } else {
+                    $(this).next("p").show()
+                    $(this).siblings(".clearBtn").hide()
+                }
+            })
+        })
+        $(".clearBtn").click(function () {
+            $(this).siblings("input").val("")
+            $(this).hide().prev("p").show()
+        })
     }
     // 注销方法
     this.dispose = function () {
