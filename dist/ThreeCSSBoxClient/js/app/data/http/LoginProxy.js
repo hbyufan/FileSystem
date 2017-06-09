@@ -21,7 +21,7 @@ function LoginProxy() {
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.LOGIN_SUCCESS));
     }
     this.loginFail = function (result, sendParam) {
-
+        $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.LOGIN_FAIL));
     }
 }
 $T.loginProxy = new LoginProxy();

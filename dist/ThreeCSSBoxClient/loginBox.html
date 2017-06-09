@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>企业网盘--单点登录</title>
-    <script src="js/lib/jquery.min.js?v=v1.0.0" type="text/javascript"></script>
-    <script src="js/lib/jquery.cookie.js?v=v1.0.0" type="text/javascript"></script>
-    <script src="js/lib/Math.uuid.js?v=v1.0.0" type="text/javascript"></script>
     <script src="js/lib/threecss-c.js?v=v1.0.0" type="text/javascript"></script>
 </head>
 <script type="text/javascript">
     //加载内部类
+    $T.version.loadScript("js/lib/jquery.min.js");
+    $T.version.loadScript("js/lib/jquery.cookie.js");
+    $T.version.loadScript("js/lib/Math.uuid.js");
+
     $T.version.loadScript("js/app/NotificationExt.js");
     $T.version.loadScript("js/app/Url.js");
     $T.version.loadScript("js/app/CookieParam.js");
@@ -17,6 +18,9 @@
     $T.version.loadScript("js/app/data/http/LoginProxy.js");
     $T.version.loadScript("js/app/LoginBoxMediator.js");
     $T.version.loadScript("js/app/GetUrlParam.js");
+
+    $T.version.loadCss("css/base.css");
+    $T.version.loadCss("css/skip_zy.css");
 
     window.onload = function () {
         //初始化内部类
@@ -31,7 +35,19 @@
 </script>
 <body>
 <div>
-    <h1>正在登陆...</h1>
+    <div class="bg_wrapper">
+        <div class="bg_in">
+            <div class="tips_box">
+                <div class="icon_box">
+                    <div class="loading_icon_01" id="login_box_gif">
+                        <img src="images/skip_logo.png" id="login_box_image"/>
+                    </div>
+                </div>
+                <p class="skip_status" id="login_box_title">正在为您跳转到企业网盘<br>请稍候...</p>
+                <p class="skip_question">如在使用中有任何问题，请联系<br/>400-816-5828</p>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

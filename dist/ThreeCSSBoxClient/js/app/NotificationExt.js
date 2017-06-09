@@ -15,6 +15,7 @@ function NotificationExt() {
     this.UPLOAD_FILE_SUCCESS = "uploadFileSuccess";
     this.UPLOAD_FILE_FAIL = "uploadFileFail";
     this.LOGIN_SUCCESS = "loginSuccess";
+    this.LOGIN_FAIL = "loginFail";
     this.GET_FOLD_CHILDREN_SUCCESS = "getFoldChildrenSuccess";
     this.GET_RECYCLEBIN_SUCCESS = "getRecycleBinSuccess";
     this.REFRESH_NOW_USERFOLD = "refreshNowUserfold";

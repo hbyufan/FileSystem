@@ -140,7 +140,7 @@ function MoveToMediator() {
             if ($T.moveToMediator.nowChooseId == $T.cookieParam.getCookieParam($T.cookieName.USER_FOLD_TOP_ID)) {
                 $("#move_to_topFold_span").removeClass("on2_PJY");
             } else {
-                $("#" + $T.moveToMediator.nowChooseId + "_span").removeClass("on2_PJY");
+                $("#" + $T.moveToMediator.nowChooseId + "_previewspan").removeClass("on2_PJY");
             }
             $T.moveToMediator.nowChooseId = null;
         }
@@ -149,7 +149,7 @@ function MoveToMediator() {
             $("#move_to_topFold_span").addClass("on2_PJY");
         } else {
             var idArray = this.id.split("_");
-            $("#" + idArray[0] + "_span").addClass("on2_PJY");
+            $("#" + idArray[0] + "_previewspan").addClass("on2_PJY");
         }
         $T.moveToMediator.nowChooseId = parentId;
 
@@ -209,7 +209,7 @@ function MoveToMediator() {
     this.createUserFoldView = function (userFold) {
         var view = document.createElement("li");
         var body;
-        body = '<a href="javascript:;"><i id="' + userFold.userFoldId + '_open"></i><span id="' + userFold.userFoldId + '_span">' + userFold.userFoldName + '</span></a>';
+        body = '<a href="javascript:;"><i id="' + userFold.userFoldId + '_open"></i><span id="' + userFold.userFoldId + '_previewspan">' + userFold.userFoldName + '</span></a>';
         view.innerHTML = body;
         view.id = userFold.userFoldId + "_move";
         return $(view);

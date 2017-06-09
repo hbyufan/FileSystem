@@ -58,7 +58,7 @@ function AllFileView1Mediator() {
     this.onOpenMoreOperate = function () {
         $(this).next().stop().slideToggle(200);
     }
-    this.onResetNameHandle = function () {
+    this.onResetNameHandle = function (event) {
         var idArray = this.id.split("_");
         var changeBox = $("#" + idArray[0] + "_changeBox");
         changeBox.prev().css({display: "none"});
@@ -67,7 +67,7 @@ function AllFileView1Mediator() {
         $("#" + idArray[0]).find("dd").css("display", "none");
         event.stopPropagation();
     }
-    this.onUpdateName = function () {
+    this.onUpdateName = function (event) {
         if ($(this).hasClass("yes_PJY")) {
             var uuidArray = this.id.split("_");
             var changeBox = $("#" + uuidArray[0] + "_changeBox");
@@ -230,7 +230,7 @@ function AllFileView1Mediator() {
             }
         });
     }
-    this.onSendCreateFold = function () {
+    this.onSendCreateFold = function (event) {
         if ($(this).hasClass("yes_PJY")) {
             var uuidArray = this.id.split("_");
             var obj = $("#" + uuidArray[0]);

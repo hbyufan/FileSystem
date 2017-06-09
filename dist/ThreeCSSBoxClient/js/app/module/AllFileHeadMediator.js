@@ -1,5 +1,7 @@
 function AllFileHeadMediator() {
     this.nowView;
+    this.downloadArray = [];
+    this.lastTimeDownload = 0;
     this.init = function (view) {
         //排序
         $("#allfile_head_sortbutton").on("mouseenter", this.onSortbuttonMouseenter);
@@ -84,18 +86,18 @@ function AllFileHeadMediator() {
         }));
     }
 
-    this.updateName = function () {
-        event.stopPropagation();
+    this.updateName = function (event) {
         var checkList = $T.allFileHeadMediator.getCheckedList();
         if (checkList.length != 1) {
             return;
         }
         var checkIdArray = checkList[0].id.split("_");
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.UPDATE_NAME, checkIdArray[0]));
-    }
-    this.createFold = function () {
         event.stopPropagation();
+    }
+    this.createFold = function (event) {
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.CREATE_USER_FOLD));
+        event.stopPropagation();
     }
     this.onChooseDownload = function () {
         var checkArray = $T.allFileHeadMediator.getCheckedList();
@@ -107,7 +109,7 @@ function AllFileHeadMediator() {
             }
             if (checkIdArray[1] == "checkFold") {
             } else {
-                window.open($T.userFileProxy.getUserFile(checkIdArray[0]))
+                $T.allFileHeadMediator.downloadArray.push(checkIdArray[0]);
             }
         }
     }
@@ -254,6 +256,14 @@ function AllFileHeadMediator() {
         var files = e.target.files;
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.UPLOAD_FILE, files));
         $("#allfile_head_uploadfilebutton").val("");
+    }
+    this.advanceTime = function (passedTime) {
+        this.lastTimeDownload += passedTime;
+        if (this.downloadArray.length > 0 && this.lastTimeDownload > 1) {
+            var userFileId = this.downloadArray.shift();
+            window.location.href = $T.userFileProxy.getUserFile(userFileId);
+            this.lastTimeDownload = 0;
+        }
     }
 }
 $T.allFileHeadMediator = new AllFileHeadMediator();
