@@ -46,6 +46,7 @@ function LoginBoxMediator() {
             this.nowTime += passedTime;
             if (this.nowTime > 1) {
                 window.location.href = "index.html";
+                this.loginSuccess = false;
             }
         }
 
