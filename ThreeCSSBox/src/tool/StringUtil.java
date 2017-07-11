@@ -7,4 +7,11 @@ public class StringUtil {
 		}
 		return false;
 	}
+
+	public static String blank(String str) {
+		if (str == null || str.equals("")) {
+			return "";
+		}
+		return str;
+	}
 }
