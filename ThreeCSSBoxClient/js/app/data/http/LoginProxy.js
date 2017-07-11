@@ -1,9 +1,10 @@
 function LoginProxy() {
     this.NAME = "LoginProxy";
-    this.login = function (token) {
+    this.login = function (token, type) {
         var data = {
             "hOpCode": 50002,
-            "token": token
+            "token": token,
+            "type": type
         };
 
         var sendParam = new SendParam();
@@ -18,6 +19,11 @@ function LoginProxy() {
         $T.cookieParam.setCookieParam($T.cookieName.USER_FOLD_TOP_ID, result.userFoldTopId);
         $T.cookieParam.setCookieParam($T.cookieName.USER_ID, result.userId);
         $T.cookieParam.setCookieParam($T.cookieName.USER_REALNAME, result.userRealName);
+        if (result.userImgUrl == null) {
+            $T.cookieParam.setCookieParam($T.cookieName.USER_IMAGE_URL, "");
+        } else {
+            $T.cookieParam.setCookieParam($T.cookieName.USER_IMAGE_URL, result.userImgUrl);
+        }
         $T.viewManager.notifyObservers($T.viewManager.getNotification($T.notificationExt.LOGIN_SUCCESS));
     }
     this.loginFail = function (result, sendParam) {

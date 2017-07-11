@@ -6,6 +6,7 @@ import java.util.Map;
 import action.BoxErrorSAction;
 import action.UserAction;
 import action.UserFoldAction;
+import action.UserType2Action;
 import config.UserFoldConfig;
 import dao.model.base.UserFold;
 import http.HOpCodeBox;
@@ -35,7 +36,13 @@ public class LoginService implements IHttpListener {
 
 	public HttpPacket loginHandle(HSession hSession) throws HttpErrorException {
 		LoginC message = (LoginC) hSession.httpPacket.getData();
-		UserData userData = UserAction.getUser(message.getToken());
+		UserData userData;
+		if (message.getType() == 2) {
+			userData = UserType2Action.getUser(message.getToken());
+		} else {
+			userData = UserAction.getUser(message.getToken());
+		}
+
 		if (userData == null) {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_1, hSession.headParam.hOpCode);
 			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
@@ -56,6 +63,7 @@ public class LoginService implements IHttpListener {
 		builder.setUserFoldTopId(userFold.getUserFoldId());
 		builder.setUserId(userData.getUserId());
 		builder.setUserRealName(userData.getUserRealName());
+		builder.setUserImgUrl(userData.getUserImgUrl());
 		HttpPacket packet = new HttpPacket(hSession.headParam.hOpCode, builder.build());
 		return packet;
 	}

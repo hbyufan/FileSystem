@@ -20,6 +20,9 @@ public class CommonConfigBox extends CommonConfig {
 	// 网盘初始化大小
 	public static int BOX_INIT_SIZE;
 
+	public static String TJSMESP_URL;
+	public static String GET_USER_MSG_BY_USER_CODEURL;
+
 	public static void init() {
 		LogManager.initLog.info("初始化CommonConfigBox");
 		JSONObject configExt = ConfigManager.getJsonData(JsonConfigType.CONFIGEXT.getTypeValue());
@@ -30,6 +33,9 @@ public class CommonConfigBox extends CommonConfig {
 		WAIT_TIME = configExt.getJSONArray("waitTime").getInt(0);
 		ONCE_WRITE_FILE_SIZE = configExt.getJSONArray("onceWriteFileSize").getInt(0);
 		BOX_INIT_SIZE = configExt.getJSONArray("boxInitSize").getInt(0);
+
+		TJSMESP_URL = configExt.getJSONArray("tjsmespUrl").getString(0);
+		GET_USER_MSG_BY_USER_CODEURL = configExt.getJSONArray("getUserMsgByUserCodeUrl").getString(0);
 		LogManager.initLog.info("初始化CommonConfigBox完成");
 	}
 

@@ -32,6 +32,11 @@ public final class LoginProto {
      */
     com.google.protobuf.ByteString
         getTokenBytes();
+
+    /**
+     * <code>optional int32 type = 3;</code>
+     */
+    int getType();
   }
   /**
    * Protobuf type {@code protobuf.http.LoginC}
@@ -47,6 +52,7 @@ public final class LoginProto {
     private LoginC() {
       hOpCode_ = 0;
       token_ = "";
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -83,6 +89,11 @@ public final class LoginProto {
               java.lang.String s = input.readStringRequireUtf8();
 
               token_ = s;
+              break;
+            }
+            case 24: {
+
+              type_ = input.readInt32();
               break;
             }
           }
@@ -151,6 +162,15 @@ public final class LoginProto {
       }
     }
 
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private int type_;
+    /**
+     * <code>optional int32 type = 3;</code>
+     */
+    public int getType() {
+      return type_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -169,6 +189,9 @@ public final class LoginProto {
       if (!getTokenBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, token_);
       }
+      if (type_ != 0) {
+        output.writeInt32(3, type_);
+      }
     }
 
     public int getSerializedSize() {
@@ -182,6 +205,10 @@ public final class LoginProto {
       }
       if (!getTokenBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, token_);
+      }
+      if (type_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, type_);
       }
       memoizedSize = size;
       return size;
@@ -203,6 +230,8 @@ public final class LoginProto {
           == other.getHOpCode());
       result = result && getToken()
           .equals(other.getToken());
+      result = result && (getType()
+          == other.getType());
       return result;
     }
 
@@ -217,6 +246,8 @@ public final class LoginProto {
       hash = (53 * hash) + getHOpCode();
       hash = (37 * hash) + TOKEN_FIELD_NUMBER;
       hash = (53 * hash) + getToken().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -339,6 +370,8 @@ public final class LoginProto {
 
         token_ = "";
 
+        type_ = 0;
+
         return this;
       }
 
@@ -363,6 +396,7 @@ public final class LoginProto {
         protobuf.http.LoginProto.LoginC result = new protobuf.http.LoginProto.LoginC(this);
         result.hOpCode_ = hOpCode_;
         result.token_ = token_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
@@ -410,6 +444,9 @@ public final class LoginProto {
         if (!other.getToken().isEmpty()) {
           token_ = other.token_;
           onChanged();
+        }
+        if (other.getType() != 0) {
+          setType(other.getType());
         }
         onChanged();
         return this;
@@ -531,6 +568,32 @@ public final class LoginProto {
         onChanged();
         return this;
       }
+
+      private int type_ ;
+      /**
+       * <code>optional int32 type = 3;</code>
+       */
+      public int getType() {
+        return type_;
+      }
+      /**
+       * <code>optional int32 type = 3;</code>
+       */
+      public Builder setType(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 type = 3;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -618,6 +681,16 @@ public final class LoginProto {
      */
     com.google.protobuf.ByteString
         getUserRealNameBytes();
+
+    /**
+     * <code>optional string userImgUrl = 5;</code>
+     */
+    java.lang.String getUserImgUrl();
+    /**
+     * <code>optional string userImgUrl = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getUserImgUrlBytes();
   }
   /**
    * Protobuf type {@code protobuf.http.LoginS}
@@ -635,6 +708,7 @@ public final class LoginProto {
       userFoldTopId_ = "";
       userId_ = "";
       userRealName_ = "";
+      userImgUrl_ = "";
     }
 
     @java.lang.Override
@@ -683,6 +757,12 @@ public final class LoginProto {
               java.lang.String s = input.readStringRequireUtf8();
 
               userRealName_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              userImgUrl_ = s;
               break;
             }
           }
@@ -819,6 +899,40 @@ public final class LoginProto {
       }
     }
 
+    public static final int USERIMGURL_FIELD_NUMBER = 5;
+    private volatile java.lang.Object userImgUrl_;
+    /**
+     * <code>optional string userImgUrl = 5;</code>
+     */
+    public java.lang.String getUserImgUrl() {
+      java.lang.Object ref = userImgUrl_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userImgUrl_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string userImgUrl = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUserImgUrlBytes() {
+      java.lang.Object ref = userImgUrl_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userImgUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -843,6 +957,9 @@ public final class LoginProto {
       if (!getUserRealNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, userRealName_);
       }
+      if (!getUserImgUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, userImgUrl_);
+      }
     }
 
     public int getSerializedSize() {
@@ -862,6 +979,9 @@ public final class LoginProto {
       }
       if (!getUserRealNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, userRealName_);
+      }
+      if (!getUserImgUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, userImgUrl_);
       }
       memoizedSize = size;
       return size;
@@ -887,6 +1007,8 @@ public final class LoginProto {
           .equals(other.getUserId());
       result = result && getUserRealName()
           .equals(other.getUserRealName());
+      result = result && getUserImgUrl()
+          .equals(other.getUserImgUrl());
       return result;
     }
 
@@ -905,6 +1027,8 @@ public final class LoginProto {
       hash = (53 * hash) + getUserId().hashCode();
       hash = (37 * hash) + USERREALNAME_FIELD_NUMBER;
       hash = (53 * hash) + getUserRealName().hashCode();
+      hash = (37 * hash) + USERIMGURL_FIELD_NUMBER;
+      hash = (53 * hash) + getUserImgUrl().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1031,6 +1155,8 @@ public final class LoginProto {
 
         userRealName_ = "";
 
+        userImgUrl_ = "";
+
         return this;
       }
 
@@ -1057,6 +1183,7 @@ public final class LoginProto {
         result.userFoldTopId_ = userFoldTopId_;
         result.userId_ = userId_;
         result.userRealName_ = userRealName_;
+        result.userImgUrl_ = userImgUrl_;
         onBuilt();
         return result;
       }
@@ -1111,6 +1238,10 @@ public final class LoginProto {
         }
         if (!other.getUserRealName().isEmpty()) {
           userRealName_ = other.userRealName_;
+          onChanged();
+        }
+        if (!other.getUserImgUrl().isEmpty()) {
+          userImgUrl_ = other.userImgUrl_;
           onChanged();
         }
         onChanged();
@@ -1371,6 +1502,75 @@ public final class LoginProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object userImgUrl_ = "";
+      /**
+       * <code>optional string userImgUrl = 5;</code>
+       */
+      public java.lang.String getUserImgUrl() {
+        java.lang.Object ref = userImgUrl_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userImgUrl_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string userImgUrl = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUserImgUrlBytes() {
+        java.lang.Object ref = userImgUrl_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userImgUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string userImgUrl = 5;</code>
+       */
+      public Builder setUserImgUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        userImgUrl_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string userImgUrl = 5;</code>
+       */
+      public Builder clearUserImgUrl() {
+        
+        userImgUrl_ = getDefaultInstance().getUserImgUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string userImgUrl = 5;</code>
+       */
+      public Builder setUserImgUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        userImgUrl_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1439,11 +1639,12 @@ public final class LoginProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020LoginProto.proto\022\rprotobuf.http\"(\n\006Log" +
-      "inC\022\017\n\007hOpCode\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\"V\n\006L" +
-      "oginS\022\017\n\007hOpCode\030\001 \001(\005\022\025\n\ruserFoldTopId\030" +
-      "\002 \001(\t\022\016\n\006userId\030\003 \001(\t\022\024\n\014userRealName\030\004 " +
-      "\001(\tb\006proto3"
+      "\n\020LoginProto.proto\022\rprotobuf.http\"6\n\006Log" +
+      "inC\022\017\n\007hOpCode\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\022\014\n\004t" +
+      "ype\030\003 \001(\005\"j\n\006LoginS\022\017\n\007hOpCode\030\001 \001(\005\022\025\n\r" +
+      "userFoldTopId\030\002 \001(\t\022\016\n\006userId\030\003 \001(\t\022\024\n\014u" +
+      "serRealName\030\004 \001(\t\022\022\n\nuserImgUrl\030\005 \001(\tb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1462,13 +1663,13 @@ public final class LoginProto {
     internal_static_protobuf_http_LoginC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_http_LoginC_descriptor,
-        new java.lang.String[] { "HOpCode", "Token", });
+        new java.lang.String[] { "HOpCode", "Token", "Type", });
     internal_static_protobuf_http_LoginS_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_protobuf_http_LoginS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_http_LoginS_descriptor,
-        new java.lang.String[] { "HOpCode", "UserFoldTopId", "UserId", "UserRealName", });
+        new java.lang.String[] { "HOpCode", "UserFoldTopId", "UserId", "UserRealName", "UserImgUrl", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
