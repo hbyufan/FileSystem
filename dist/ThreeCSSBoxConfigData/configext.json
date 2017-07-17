@@ -1,5 +1,5 @@
 {
-"uCenterUrl":["http://localhost:8080/ThreeCSSIdentity/s","UCenter地址"],
+"uCenterUrl":["http://www.threecss.com/ThreeCSSIdentity/s","UCenter地址"],
 "isUseHDFS":[false,"是否使用hdfs"],
 "fileBasePath":["FileBasePath","基础文件目录"],
 "uploadMaxLength":[1048576,"最大上传长度"],
