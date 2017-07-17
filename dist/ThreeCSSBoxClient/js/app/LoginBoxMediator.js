@@ -13,7 +13,8 @@ function LoginBoxMediator() {
         }
         // 设置cookie
         $T.cookieParam.setCookieParam($T.cookieName.TOKEN, token);
-        $T.loginProxy.login(token);
+        var type = $T.getUrlParam.getUrlParam("type");
+        $T.loginProxy.login(token,type);
     }
     // 注销方法
     this.dispose = function () {

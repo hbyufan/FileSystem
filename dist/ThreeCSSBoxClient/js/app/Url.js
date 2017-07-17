@@ -1,6 +1,6 @@
 function Url() {
-    this.url = "https://www.onceyun.com/ThreeCSSIdentity/s";
-    this.boxUrl = "https://www.onceyun.com/ThreeCSSBox/s";
+    this.url = "http://localhost:8080/ThreeCSSIdentity/s";
+    this.boxUrl = "http://localhost:8082/ThreeCSSBox/s";
     this.cloudManagerUrl = "";
 }
 $T.url = new Url();

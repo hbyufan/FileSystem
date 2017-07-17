@@ -10,7 +10,13 @@ function RightMediator() {
             scrollbarPosition: "outside"
         });
         $("#right_userrealname").text($T.cookieParam.getCookieParam($T.cookieName.USER_REALNAME));
-        $("#right_userimg")[0].src = $T.tokenProxy.getUserImg();
+        if ($T.cookieParam.getCookieParam($T.cookieName.USER_IMAGE_URL) != "") {
+            $("#right_userimg")[0].src = $T.cookieParam.getCookieParam($T.cookieName.USER_IMAGE_URL);
+        } else {
+            $("#right_userimg")[0].src = "images/logo.png";
+        }
+
+
         $("#right_open_uploadbox").on("click", this.onOpenUploadBox);
     }
     // 注销方法
