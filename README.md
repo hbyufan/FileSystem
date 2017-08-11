@@ -18,7 +18,7 @@ ant
 
 配置：
 
-dist/ThreeCSSBoxClient/js/app/url.js-----访问网盘服务器与身份系统服务器
+dist/ThreeCSSBoxClient/js/app/Url.js-----访问网盘服务器与身份系统服务器
 
 dist/ThreeCSSBoxConfigData/configext.json----访问身份系统及其他配置
 
