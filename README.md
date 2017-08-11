@@ -29,23 +29,27 @@ dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
 
 发布项目：
 
-1、安装数据库
+1、该项目依赖threecss-identity，需要先部署身份系统，具体详见：
+
+https://github.com/threecss/threecss-identity
+
+2、安装数据库
 	
 	create database threecssbox
 	
 	source ****/threecssbox.sql
 
-2、将ThreeCSSBoxConfigData放入服务器某个路径，例如
+3、将ThreeCSSBoxConfigData放入服务器某个路径，例如
 	
 	/home/ThreeCSSBoxConfigData
 
-3、将ThreeCSSBox.properties放入tomcat根目录下，例如
+4、将ThreeCSSBox.properties放入tomcat根目录下，例如
 	
 	/home/tomcat/ThreeCSSBox.properties
 	
 	并修改config_dir对应的ThreeCSSBoxConfigData路径
 
-4、将ThreeCSSBoxClient与ThreeCSSBox.war放入tomcat/webapps，例如
+5、将ThreeCSSBoxClient与ThreeCSSBox.war放入tomcat/webapps，例如
 	
 	/home/tomcat/webapps/ThreeCSSBox.war
 	
