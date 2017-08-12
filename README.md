@@ -4,27 +4,31 @@ threecss-box是基于ThreeCSS分布式框架开发的一款网盘项目。
 
 该项目由ThreeCSSBox(服务器)与ThreeCSSBoxClient(客户端)两个子项目组成。
 
+
 体验地址：
 http://box.threecss.com
 
+
 依赖身份系统：
 threecss-identity
+
 
 打版本：
 
 在项目根目录下，配置好build-custom.properties每个项目的路径及发布路径，执行：
 
-ant
+	ant
+
 
 配置：
 
-dist/ThreeCSSBoxClient/js/app/Url.js-----访问网盘服务器与身份系统服务器
+	dist/ThreeCSSBoxClient/js/app/Url.js-----访问网盘服务器与身份系统服务器
 
-dist/ThreeCSSBoxConfigData/configext.json----访问身份系统及其他配置
+	dist/ThreeCSSBoxConfigData/configext.json----访问身份系统及其他配置
 
-dist/ThreeCSSBoxConfigData/mybatis-config.xml---访问网盘数据库
+	dist/ThreeCSSBoxConfigData/mybatis-config.xml---访问网盘数据库
 
-dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
+	dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
 
 
 发布项目：
