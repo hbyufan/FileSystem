@@ -31,7 +31,7 @@ dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
 
 1、该项目依赖threecss-identity，需要先部署身份系统，具体详见：
 
-https://github.com/threecss/threecss-identity
+https://github.com/dianbaer/threecss-identity
 
 2、安装数据库
 	
