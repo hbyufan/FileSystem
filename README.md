@@ -13,9 +13,7 @@ http://box.threecss.com
 threecss-identity
 
 
-打版本：
-
-在项目根目录下，配置好build-custom.properties每个项目的路径及发布路径，执行：
+打版本：在项目根目录下，配置好build-custom.properties每个项目的路径及发布路径，执行
 
 	ant
 
