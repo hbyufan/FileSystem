@@ -29,6 +29,19 @@ threecss-identity
 	dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
 
 
+推荐环境：
+
+	jdk-8u121
+
+	apache-tomcat-8.5.12
+
+	MariaDB-10.1.22
+
+	CentOS-7-1611
+
+	支持Html5浏览器
+
+
 发布项目：
 
 1、该项目依赖threecss-identity，需要先部署身份系统，具体详见：
