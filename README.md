@@ -6,7 +6,7 @@ threecss-box是基于ThreeCSS分布式框架开发的一款网盘项目。
 
 
 体验地址：
-http://box.threecss.com
+https://box.threecss.com
 
 
 依赖身份系统：
