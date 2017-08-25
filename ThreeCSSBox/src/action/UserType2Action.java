@@ -1,6 +1,7 @@
 package action;
 
 import config.CommonConfigBox;
+import http.HttpUtil;
 import log.LogManager;
 import net.sf.json.JSONObject;
 import protobuf.http.UserGroupProto.UserData;
@@ -14,7 +15,10 @@ public class UserType2Action {
 			return null;
 		}
 		String getUserUrl = CommonConfigBox.TJSMESP_URL + CommonConfigBox.GET_USER_MSG_BY_USER_CODEURL + userId;
-		JSONObject result = HttpUtilToTjsAction.sendToTjsMesp(null, getUserUrl, null, null);
+		JSONObject result = HttpUtil.sendJson(null, getUserUrl, null);
+		if (result == null) {
+			return null;
+		}
 		JSONObject data = result.getJSONObject("data");
 		int status = result.getInt("status");
 		if (status != 1 || !data.containsKey("userMsg")) {
