@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-22 14:48:25
+Date: 2017-08-23 06:19:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,16 @@ CREATE TABLE `file_base` (
   `file_base_complete_time` datetime DEFAULT NULL,
   `file_base_next_upload_time` datetime DEFAULT NULL,
   PRIMARY KEY (`file_base_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_boxinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `user_boxinfo`;
+CREATE TABLE `user_boxinfo` (
+  `user_id` varchar(64) NOT NULL,
+  `box_size_offset` int(11) NOT NULL COMMENT '网盘大小偏移值',
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
