@@ -3,8 +3,10 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
+import action.UserBoxInfoAction;
 import action.UserFileAction;
 import config.CommonConfigBox;
+import dao.model.base.UserBoxinfo;
 import http.HOpCodeBox;
 import http.HSession;
 import http.HttpPacket;
@@ -12,6 +14,7 @@ import http.IHttpListener;
 import http.exception.HttpErrorException;
 import protobuf.http.BoxInfoProto.BoxInfoC;
 import protobuf.http.BoxInfoProto.BoxInfoS;
+import protobuf.http.UserGroupProto.UserData;
 import util.SizeUtil;
 
 public class BoxInfoService implements IHttpListener {
@@ -39,7 +42,13 @@ public class BoxInfoService implements IHttpListener {
 			int countM = (int) Math.ceil(countSize.longValue() / (SizeUtil.KB_SIZE + 0.0));
 			builder.setUseSize(countM);
 		}
-		builder.setTotalSize(CommonConfigBox.BOX_INIT_SIZE);
+		UserData userData = (UserData) hSession.otherData;
+		UserBoxinfo userBoxinfo = UserBoxInfoAction.getUserBoxinfoById(userData.getUserId());
+		if (userBoxinfo == null) {
+			builder.setTotalSize(CommonConfigBox.BOX_INIT_SIZE);
+		} else {
+			builder.setTotalSize(CommonConfigBox.BOX_INIT_SIZE + userBoxinfo.getBoxSizeOffset());
+		}
 		HttpPacket packet = new HttpPacket(hSession.headParam.hOpCode, builder.build());
 		return packet;
 	}

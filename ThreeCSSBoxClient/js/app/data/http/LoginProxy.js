@@ -1,10 +1,11 @@
 function LoginProxy() {
     this.NAME = "LoginProxy";
-    this.login = function (token, type) {
+    this.login = function (token, type,boxsize) {
         var data = {
             "hOpCode": 50002,
             "token": token,
-            "type": type
+            "type": type,
+            "boxsize":boxsize
         };
 
         var sendParam = new SendParam();

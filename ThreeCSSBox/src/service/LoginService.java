@@ -5,9 +5,12 @@ import java.util.Map;
 
 import action.BoxErrorSAction;
 import action.UserAction;
+import action.UserBoxInfoAction;
 import action.UserFoldAction;
 import action.UserType2Action;
+import config.CommonConfigBox;
 import config.UserFoldConfig;
+import dao.model.base.UserBoxinfo;
 import dao.model.base.UserFold;
 import http.HOpCodeBox;
 import http.HSession;
@@ -55,6 +58,25 @@ public class LoginService implements IHttpListener {
 			}
 		}
 		if (userFold == null) {
+			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_2, hSession.headParam.hOpCode);
+			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
+		}
+		UserBoxinfo userBoxinfo = UserBoxInfoAction.getUserBoxinfoById(userData.getUserId());
+		if (userBoxinfo == null) {
+			int boxSize = 0;
+			if (message.getBoxsize() > 0) {
+				boxSize = message.getBoxsize() - CommonConfigBox.BOX_INIT_SIZE;
+			}
+			userBoxinfo = UserBoxInfoAction.createUserBoxInfo(userData.getUserId(), boxSize);
+			if (userBoxinfo == null) {
+				userBoxinfo = UserBoxInfoAction.getUserBoxinfoById(userData.getUserId());
+			}
+		} else {
+			if (message.getBoxsize() > 0) {
+				userBoxinfo = UserBoxInfoAction.updateUserBoxinfo(userData.getUserId(), message.getBoxsize() - CommonConfigBox.BOX_INIT_SIZE);
+			}
+		}
+		if (userBoxinfo == null) {
 			BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_2, hSession.headParam.hOpCode);
 			throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 		}

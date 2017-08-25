@@ -61,5 +61,6 @@
         <table tableName="file_base"/>
         <table tableName="user_file"/>
         <table tableName="user_fold"/>
+        <table tableName="user_boxinfo"/>
 	</context>
 </generatorConfiguration>

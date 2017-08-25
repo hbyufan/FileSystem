@@ -14,7 +14,8 @@ function LoginBoxMediator() {
         // 设置cookie
         $T.cookieParam.setCookieParam($T.cookieName.TOKEN, token);
         var type = $T.getUrlParam.getUrlParam("type");
-        $T.loginProxy.login(token,type);
+        var boxsize = $T.getUrlParam.getUrlParam("capacity");
+        $T.loginProxy.login(token,type,boxsize);
     }
     // 注销方法
     this.dispose = function () {

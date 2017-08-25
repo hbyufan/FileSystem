@@ -4,6 +4,7 @@ message LoginC{
 	int32 hOpCode=1;
 	string token=2;
 	int32 type=3;
+	int32 boxsize=4;
 }
 message LoginS{
 	int32 hOpCode=1;

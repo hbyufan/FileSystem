@@ -51,5 +51,6 @@
         <mapper resource="dao/mappers/ext/UserFileMapperExt.xml" />
         <mapper resource="dao/mappers/base/UserFoldMapper.xml" />
         <mapper resource="dao/mappers/ext/UserFoldMapperExt.xml" />
+		<mapper resource="dao/mappers/base/UserBoxinfoMapper.xml" />
 	</mappers>
 </configuration> 

@@ -37,6 +37,11 @@ public final class LoginProto {
      * <code>optional int32 type = 3;</code>
      */
     int getType();
+
+    /**
+     * <code>optional int32 boxsize = 4;</code>
+     */
+    int getBoxsize();
   }
   /**
    * Protobuf type {@code protobuf.http.LoginC}
@@ -53,6 +58,7 @@ public final class LoginProto {
       hOpCode_ = 0;
       token_ = "";
       type_ = 0;
+      boxsize_ = 0;
     }
 
     @java.lang.Override
@@ -94,6 +100,11 @@ public final class LoginProto {
             case 24: {
 
               type_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              boxsize_ = input.readInt32();
               break;
             }
           }
@@ -171,6 +182,15 @@ public final class LoginProto {
       return type_;
     }
 
+    public static final int BOXSIZE_FIELD_NUMBER = 4;
+    private int boxsize_;
+    /**
+     * <code>optional int32 boxsize = 4;</code>
+     */
+    public int getBoxsize() {
+      return boxsize_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -192,6 +212,9 @@ public final class LoginProto {
       if (type_ != 0) {
         output.writeInt32(3, type_);
       }
+      if (boxsize_ != 0) {
+        output.writeInt32(4, boxsize_);
+      }
     }
 
     public int getSerializedSize() {
@@ -209,6 +232,10 @@ public final class LoginProto {
       if (type_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, type_);
+      }
+      if (boxsize_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, boxsize_);
       }
       memoizedSize = size;
       return size;
@@ -232,6 +259,8 @@ public final class LoginProto {
           .equals(other.getToken());
       result = result && (getType()
           == other.getType());
+      result = result && (getBoxsize()
+          == other.getBoxsize());
       return result;
     }
 
@@ -248,6 +277,8 @@ public final class LoginProto {
       hash = (53 * hash) + getToken().hashCode();
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getType();
+      hash = (37 * hash) + BOXSIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getBoxsize();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -372,6 +403,8 @@ public final class LoginProto {
 
         type_ = 0;
 
+        boxsize_ = 0;
+
         return this;
       }
 
@@ -397,6 +430,7 @@ public final class LoginProto {
         result.hOpCode_ = hOpCode_;
         result.token_ = token_;
         result.type_ = type_;
+        result.boxsize_ = boxsize_;
         onBuilt();
         return result;
       }
@@ -447,6 +481,9 @@ public final class LoginProto {
         }
         if (other.getType() != 0) {
           setType(other.getType());
+        }
+        if (other.getBoxsize() != 0) {
+          setBoxsize(other.getBoxsize());
         }
         onChanged();
         return this;
@@ -591,6 +628,32 @@ public final class LoginProto {
       public Builder clearType() {
         
         type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int boxsize_ ;
+      /**
+       * <code>optional int32 boxsize = 4;</code>
+       */
+      public int getBoxsize() {
+        return boxsize_;
+      }
+      /**
+       * <code>optional int32 boxsize = 4;</code>
+       */
+      public Builder setBoxsize(int value) {
+        
+        boxsize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 boxsize = 4;</code>
+       */
+      public Builder clearBoxsize() {
+        
+        boxsize_ = 0;
         onChanged();
         return this;
       }
@@ -1639,12 +1702,12 @@ public final class LoginProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020LoginProto.proto\022\rprotobuf.http\"6\n\006Log" +
+      "\n\020LoginProto.proto\022\rprotobuf.http\"G\n\006Log" +
       "inC\022\017\n\007hOpCode\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\022\014\n\004t" +
-      "ype\030\003 \001(\005\"j\n\006LoginS\022\017\n\007hOpCode\030\001 \001(\005\022\025\n\r" +
-      "userFoldTopId\030\002 \001(\t\022\016\n\006userId\030\003 \001(\t\022\024\n\014u" +
-      "serRealName\030\004 \001(\t\022\022\n\nuserImgUrl\030\005 \001(\tb\006p" +
-      "roto3"
+      "ype\030\003 \001(\005\022\017\n\007boxsize\030\004 \001(\005\"j\n\006LoginS\022\017\n\007" +
+      "hOpCode\030\001 \001(\005\022\025\n\ruserFoldTopId\030\002 \001(\t\022\016\n\006" +
+      "userId\030\003 \001(\t\022\024\n\014userRealName\030\004 \001(\t\022\022\n\nus" +
+      "erImgUrl\030\005 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1663,7 +1726,7 @@ public final class LoginProto {
     internal_static_protobuf_http_LoginC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_protobuf_http_LoginC_descriptor,
-        new java.lang.String[] { "HOpCode", "Token", "Type", });
+        new java.lang.String[] { "HOpCode", "Token", "Type", "Boxsize", });
     internal_static_protobuf_http_LoginS_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_protobuf_http_LoginS_fieldAccessorTable = new
