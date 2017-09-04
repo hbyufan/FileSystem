@@ -7,11 +7,13 @@ import java.util.Map;
 
 import action.BoxErrorSAction;
 import action.FileBaseAction;
+import action.UserBoxInfoAction;
 import action.UserFileAction;
 import action.UserFoldAction;
 import config.CommonConfigBox;
 import config.FileBaseConfig;
 import dao.model.base.FileBase;
+import dao.model.base.UserBoxinfo;
 import dao.model.base.UserFold;
 import dao.model.ext.UserFileExt;
 import http.HOpCodeBox;
@@ -73,8 +75,13 @@ public class UploadService implements IHttpListener, IService {
 				userFoldTopId = parentUserFold.getUserFoldTopId();
 			}
 			Long userFileTotalSize = UserFileAction.getUserFileTotalSize(userFoldTopId);
+			UserBoxinfo userBoxinfo = UserBoxInfoAction.getUserBoxinfoById(userData.getUserId());
+			int boxSize = CommonConfigBox.BOX_INIT_SIZE;
+			if (userBoxinfo != null) {
+				boxSize = CommonConfigBox.BOX_INIT_SIZE + userBoxinfo.getBoxSizeOffset();
+			}
 			if (userFileTotalSize != null) {
-				if (userFileTotalSize.longValue() > CommonConfigBox.BOX_INIT_SIZE * SizeUtil.KB_SIZE) {
+				if (userFileTotalSize.longValue() > boxSize * SizeUtil.KB_SIZE) {
 					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_25, hSession.headParam.hOpCode);
 					throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 				}
