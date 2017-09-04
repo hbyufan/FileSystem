@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.troila</groupId>
+  <artifactId>troila</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<!-- 与commonLib MessageLib的文件结合后 -->
+  	<!-- jackson-core-asl-1.9.13.jar jackson-mapper-asl-1.9.13.jar jasper-compiler-5.5.23.jar 不要-->
+  	<!-- jersey-server-1.9.jar版本不对 用hadoop2.6.0项目的-->
+  	<!-- jdk.tools-1.6.jar servlet-api-2.5.jar 不要 -->
+	<!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common -->
+	<dependency>
+	    <groupId>org.apache.hadoop</groupId>
+	    <artifactId>hadoop-common</artifactId>
+	    <version>2.6.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common -->
+	<dependency>
+	    <groupId>org.apache.hadoop</groupId>
+	    <artifactId>hadoop-hdfs</artifactId>
+	    <version>2.6.0</version>
+	</dependency>
+	</dependencies>
+</project>
