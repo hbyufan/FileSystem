@@ -81,7 +81,7 @@ public class UploadService implements IHttpListener, IService {
 				boxSize = CommonConfigBox.BOX_INIT_SIZE + userBoxinfo.getBoxSizeOffset();
 			}
 			if (userFileTotalSize != null) {
-				if (userFileTotalSize.longValue() > boxSize * SizeUtil.KB_SIZE) {
+				if (userFileTotalSize.longValue() + message.getFileBaseTotalSize() > boxSize * SizeUtil.KB_SIZE) {
 					BoxErrorS boxErrorS = BoxErrorSAction.create(BoxErrorCode.ERROR_CODE_25, hSession.headParam.hOpCode);
 					throw new HttpErrorException(HOpCodeBox.BOX_ERROR, boxErrorS);
 				}
