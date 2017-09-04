@@ -115,21 +115,22 @@ public class HDFSUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		//初始化
+		// 初始化
 		HDFSUtil.init();
-		//创建文件夹
+		// 创建文件夹
 		StringBuilder pathStr = new StringBuilder();
 		pathStr.append(File.separator);
 		pathStr.append("box_company");
 		HDFSUtil.mkdirs(pathStr.toString());
-		//创建文件
-		File file = new File("C:\\Users\\admin\\Desktop\\github\\deployment-server\\trunk\\python\\Python-3.6.2.tgz");
+		// 创建文件
+		File file = new File("C:\\Users\\admin\\Desktop\\hadoop-2.6.0.tar.gz");
 		InputStream stream = new FileInputStream(file);
 		pathStr.append(File.separator);
-		pathStr.append("Python-3.6.2.tgz");
+		pathStr.append("hadoop-2.6.0" + 4 + ".tar.gz");
 		FSDataOutputStream fs = HDFSUtil.getOutPutCreate(pathStr.toString());
-		//追加进去
+		// 追加进去
 		HDFSUtil.append(pathStr.toString(), stream, fs);
+
 	}
 
 }
