@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/dianbaer/threecss-box.svg?branch=master)](https://travis-ci.org/dianbaer/threecss-box)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c88406339a84730abf6b80290a4c445)](https://www.codacy.com/app/232365732/threecss-box?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dianbaer/threecss-box&amp;utm_campaign=Badge_Grade)
 
-threecss-box是基于ThreeCSS分布式框架开发的一款网盘项目。
+threecss-box是基于ThreeCSS分布式框架开发的一款文件存储项目。
 
 该项目由ThreeCSSBox(服务器)与ThreeCSSBoxClient(客户端)两个子项目组成。
 
@@ -21,11 +21,11 @@ threecss-identity
 
 配置：
 
-	dist/ThreeCSSBoxClient/js/app/Url.js-----访问网盘服务器与身份系统服务器
+	dist/ThreeCSSBoxClient/js/app/Url.js-----访问文件存储服务器与身份系统服务器
 
 	dist/ThreeCSSBoxConfigData/configext.json----访问身份系统及其他配置
 
-	dist/ThreeCSSBoxConfigData/mybatis-config.xml---访问网盘数据库
+	dist/ThreeCSSBoxConfigData/mybatis-config.xml---访问文件存储数据库
 
 	dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
 
