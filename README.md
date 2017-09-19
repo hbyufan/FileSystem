@@ -33,6 +33,8 @@ threecss-identity
 
 ## 推荐环境：
 
+>快捷部署 https://github.com/dianbaer/deployment-server
+
 	jdk-8u121
 
 	apache-tomcat-8.5.12
