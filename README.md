@@ -1,18 +1,19 @@
-# threecss-box
+# FileSystem
 
 [![Build Status](https://travis-ci.org/dianbaer/FileSystem.svg?branch=master)](https://travis-ci.org/dianbaer/FileSystem)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c88406339a84730abf6b80290a4c445)](https://www.codacy.com/app/232365732/threecss-box?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dianbaer/threecss-box&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e755f04dcaf4cb7b521e30950f29684)](https://www.codacy.com/app/232365732/FileSystem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dianbaer/FileSystem&amp;utm_campaign=Badge_Grade)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-# threecss-box是基于ThreeCSS分布式框架开发的一款文件存储项目。
+# FileSystem是一个文件存储项目。
 
-该项目由ThreeCSSBox(服务器)与ThreeCSSBoxClient(客户端)两个子项目组成。
+该项目由FileSystemServer(服务器)与FileSystemClient(客户端)两个子项目组成。
 
 
 
 
 ## 依赖身份系统：
-threecss-identity
+
+Identity
 
 
 ## 打版本：在项目根目录下，执行
@@ -22,13 +23,11 @@ threecss-identity
 
 ## 配置：
 
-	dist/ThreeCSSBoxClient/js/app/Url.js-----访问文件存储服务器与身份系统服务器
+	dist/FileSystemClient/js/app/Url.js-----访问文件存储服务器与身份系统服务器
 
-	dist/ThreeCSSBoxConfigData/configext.json----访问身份系统及其他配置
+	dist/FileSystemConfig/mybatis-config.xml---访问文件存储数据库
 
-	dist/ThreeCSSBoxConfigData/mybatis-config.xml---访问文件存储数据库
-
-	dist/ThreeCSSBox.properties----ThreeCSSBoxConfigData在服务器路径
+	dist/FileSystemServer.properties----FileSystemConfig在服务器路径及一些配置
 
 
 ## 推荐环境：
@@ -48,34 +47,34 @@ threecss-identity
 
 ## 发布项目：
 
->1、该项目依赖threecss-identity，需要先部署身份系统，具体详见：
+>1、该项目依赖Identity，需要先部署身份系统，具体详见：
 
-	https://github.com/dianbaer/threecss-identity
+	https://github.com/dianbaer/Identity
 
 >2、安装数据库
 	
-	create database threecssbox
+	create database filesystem
 	
-	source ****/threecssbox.sql
+	source ****/filesystem.sql
 
->3、将ThreeCSSBoxConfigData放入服务器某个路径，例如
+>3、将FileSystemConfig放入服务器某个路径，例如
 	
-	/home/ThreeCSSBoxConfigData
+	/home/FileSystemConfig
 
->4、将ThreeCSSBox.properties放入tomcat根目录下，例如
+>4、将FileSystemServer.properties放入tomcat根目录下，例如
 	
-	/home/tomcat/ThreeCSSBox.properties
+	/home/tomcat/FileSystemServer.properties
 	
-	并修改config_dir对应的ThreeCSSBoxConfigData路径
+	并修改config_dir对应的FileSystemConfig路径
 
->5、将ThreeCSSBoxClient与ThreeCSSBox.war放入tomcat/webapps，例如
+>5、将FileSystemClient与FileSystemServer.war放入tomcat/webapps，例如
 	
-	/home/tomcat/webapps/ThreeCSSBox.war
+	/home/tomcat/webapps/FileSystemServer.war
 	
-	/home/tomcat/webapps/ThreeCSSBoxClient
+	/home/tomcat/webapps/FileSystemClient
 
 
-## threecss-box功能：
+## FileSystem功能：
 
 >1、登录：
 	
