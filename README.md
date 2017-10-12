@@ -9,6 +9,13 @@
 该项目由FileSystemServer(服务器)与FileSystemClient(客户端)两个子项目组成。
 
 
+基于grain
+
+https://github.com/dianbaer/grain
+
+	grain-httpserver
+	grain-mariadb
+	grain-httpclient
 
 
 ## 依赖身份系统：
