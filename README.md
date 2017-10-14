@@ -6,10 +6,10 @@
 
 # FileSystem是一个文件存储项目。
 
-该项目由FileSystemServer(服务器)与FileSystemClient(客户端)两个子项目组成。
+FileSystem由FileSystemServer(服务器)与FileSystemClient(客户端)两个项目组成。
 
 
-基于grain
+### 基于grain RPC框架
 
 https://github.com/dianbaer/grain
 
@@ -18,9 +18,10 @@ https://github.com/dianbaer/grain
 	grain-httpclient
 
 
-## 依赖身份系统：
+## 依赖身份系统Identity：
 
-Identity
+
+https://github.com/dianbaer/Identity
 
 
 ## 打版本：在项目根目录下，执行
@@ -30,11 +31,43 @@ Identity
 
 ## 配置：
 
-	dist/FileSystemClient/js/app/Url.js-----访问文件存储服务器与身份系统服务器
 
-	dist/FileSystemConfig/mybatis-config.xml---访问文件存储数据库
+dist/FileSystemClient/js/app/Url.js-----访问文件存储服务器与身份系统服务器
 
-	dist/FileSystemServer.properties----FileSystemConfig在服务器路径及一些配置
+	function Url() {
+		//身份系统的地址
+		this.url = "http://localhost:8080/IdentityServer/s";
+		//文件存储系统的地址
+		this.boxUrl = "http://localhost:8081/FileSystemServer/s";
+		//不用填
+		this.cloudManagerUrl = "";
+	}
+	$T.url = new Url();
+
+dist/FileSystemConfig/mybatis-config.xml---访问文件存储数据库
+
+dist/FileSystemServer.properties----FileSystemConfig在服务器路径及一些配置
+
+	#mybatis-config.xml在服务器的地址
+	config_dir = C:/Users/admin/Desktop/github/FileSystem/trunk/FileSystemConfig
+	#身份系统的地址
+	uCenterUrl = http://localhost:8080/IdentityServer/s
+	#填false
+	isUseHDFS = false
+	#上传文件存储路径名跟FileSystemServer在同一层级
+	fileBasePath = FileBasePath
+	#分块上传长度
+	uploadMaxLength = 1048576
+	#每次客户端上传间隔频率，毫秒
+	waitTime = 640
+	#一次性写入字节数
+	onceWriteFileSize = 65536
+	#文件系统初始化大小M
+	boxInitSize = 2048
+	#不用填
+	tjsmespUrl = 
+	#不用填
+	getUserMsgByUserCodeUrl = 
 
 
 ## 推荐环境：
